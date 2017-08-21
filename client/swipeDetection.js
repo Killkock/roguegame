@@ -5,8 +5,6 @@ function swipedetect(delay, callback){
   var xDown = null;
   var yDown = null;
 
-
-
   function handleTouchStart(evt) {
     xDown = evt.touches[0].clientX;
     yDown = evt.touches[0].clientY;
@@ -16,9 +14,6 @@ function swipedetect(delay, callback){
     if ( ! xDown || ! yDown ) {
         return;
     }
-
-
-
 
     function preventDefault(e) {
       e = e || window.event;
@@ -59,12 +54,11 @@ function swipedetect(delay, callback){
     if (isSwipeAllowed) callback(direction);
     isSwipeAllowed = false;
     setTimeout(delay, () => isSwipeAllowed = true);
-    disableScroll()
     xDown = null;
     yDown = null;
+    document.addEventListener('touchstart', handleTouchStart, false);
+    document.addEventListener('touchmove', handleTouchMove, false);
   };
-
-
 
     // var touchsurface = el,
     // swipedir,

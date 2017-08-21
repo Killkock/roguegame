@@ -8,8 +8,6 @@ const GameField = (props) => {
   var visibleCells = calculateVisibleArea(x, y);
   var level = props.gameLevel;
 
-  
-
   var cells = field.map((elem, i) => {
     return elem.map((cell, j) => {
       if (isVisible) {
@@ -33,7 +31,6 @@ const GameField = (props) => {
   })
 
   function calculateVisibleArea(x, y) {
-
     var result = [];
     for (let i = x - 2; i <= x + 2; i++) {
       if (i < 0 || i > 24) continue;
@@ -44,7 +41,6 @@ const GameField = (props) => {
     }
     return result;
   }
-
 
   return (
     <main>

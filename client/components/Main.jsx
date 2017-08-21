@@ -9,7 +9,6 @@ import GameStats from './GameStats.jsx';
 import DragManager from '../DragManager.js';
 import swipedetect from '../swipeDetection.js';
 
-
 class Main extends React.Component {
   constructor(props) {
     super(props)
@@ -38,8 +37,6 @@ class Main extends React.Component {
       allStats.push(stats);
     }
 
-    // var { gameField, playerLocation, player } = this.createGameField();
-
     var isFinished = false;
     var isInBattle = false;
 
@@ -47,7 +44,6 @@ class Main extends React.Component {
       environment,
       playerLocation: playerLocations[currentGameLevel],
       gameField: gameFields[currentGameLevel],
-
       stats: allStats[currentGameLevel],
       gameFields,
       playerLocations,
@@ -128,7 +124,6 @@ class Main extends React.Component {
       this.level = 1;
       this.experience = 0;
       this.hp = 100 * this.level;
-
       this.equipment = {
         helmet: null,
         necklace: null,
@@ -260,13 +255,6 @@ class Main extends React.Component {
     }
 
     Equipment.prototype = Object.create(Creation.prototype);
-    //
-    // Equipment.prototype.action = function(player) {
-    //   var armor = (Math.round(Math.random() * 10))
-    //   var damage = (Math.round(Math.random() * 30))
-    //   player.weapon = player.weapon > random ? player.weapon : random;
-    //   return 'weapons';
-    // }
 
     return {
       Enemy,
@@ -319,8 +307,6 @@ class Main extends React.Component {
         gameField[roomHeads[0].x - 1][roomHeads[0].y] = new env.Door(level - 1);
         gameField[roomHeads.slice(-1)[0].x][roomHeads.slice(-1)[0].y] = new env.Door(level + 1);
       }
-
-
     } else {
       gameField[roomHeads[0].x][roomHeads[0].y] = new env.Player();
       gameField[roomHeads.slice(-1)[0].x][roomHeads.slice(-1)[0].y] = new env.Door(level + 1);
@@ -661,8 +647,6 @@ class Main extends React.Component {
       }
 
     }
-
-
   }
 
   handleDeath(x, y) {
@@ -706,15 +690,8 @@ class Main extends React.Component {
         </div>
       </div>
 
-
-
-
           <Shadow visible={this.state.isFinished} />
           <GameMessages messages={this.state.consoleMsgs} />
-
-
-
-
 
           </div>
 
