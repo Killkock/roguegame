@@ -17,7 +17,7 @@ function swipedetect(delay, callback){
         return;
     }
 
-    preventDefault(e);
+    preventDefault(evt);
 
     function preventDefault(e) {
       e = e || window.event;
@@ -57,11 +57,7 @@ function swipedetect(delay, callback){
     yDown = null;
   };
 
-  function disableScroll() {
-    if (window.addEventListener) // older FF
-        window.addEventListener('DOMMouseScroll', preventDefault, false);
-    window.ontouchmove  = preventDefault; // mobile
-  }
+
 
     // var touchsurface = el,
     // swipedir,
