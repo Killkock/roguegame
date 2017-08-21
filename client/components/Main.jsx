@@ -14,7 +14,7 @@ class Main extends React.Component {
   constructor(props) {
     super(props)
     document.body.addEventListener('keydown', (e) => this.handlePress(e));
-    swipedetect(document.body, (dir) => this.handlePress(dir));
+    swipedetect((e) => this.handlePress(e));
   }
 
   componentWillMount() {
