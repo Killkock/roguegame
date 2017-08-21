@@ -14,7 +14,7 @@ class Main extends React.Component {
   constructor(props) {
     super(props)
     document.body.addEventListener('keydown', (e) => this.handlePress(e));
-    swipedetect((e) => this.handlePress(e));
+    swipedetect(500, (e) => this.handlePress(e));
   }
 
   componentWillMount() {
@@ -568,7 +568,7 @@ class Main extends React.Component {
       nY--;
     } else if (e.key === 'ArrowRight' || e === 'right') {
       nY++;
-    } else if (e.key === 'ArrowUp' || e === 'top') {
+    } else if (e.key === 'ArrowUp' || e === 'up') {
       nX--;
     } else if (e.key === 'ArrowDown' || e === 'down') {
       nX++;

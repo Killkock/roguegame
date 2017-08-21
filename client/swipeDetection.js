@@ -1,7 +1,7 @@
-function swipedetect(callback){
+function swipedetect(delay, callback){
   document.addEventListener('touchstart', handleTouchStart, false);
   document.addEventListener('touchmove', handleTouchMove, false);
-
+  var isSwipeAllowed = true;
   var xDown = null;
   var yDown = null;
 
@@ -38,7 +38,9 @@ function swipedetect(callback){
         }
     }
 
-    callback(direction)
+    if (isSwipeAllowed) callback(direction);
+    isSwipeAllowed = false;
+    setTimeout(delay, () => isSwipeAllowed = true);
 
     xDown = null;
     yDown = null;
