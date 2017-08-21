@@ -6,14 +6,15 @@ import Shadow from './Shadow.jsx';
 import GameMessages from './GameMessages.jsx';
 import GameStats from './GameStats.jsx';
 
-import DragManager from '../DragManager.js'
-
+import DragManager from '../DragManager.js';
+import swipedetect from '../swipeDetection.js';
 
 
 class Main extends React.Component {
   constructor(props) {
     super(props)
-    document.body.addEventListener('keydown', (e) => this.handlePress(e))
+    document.body.addEventListener('keydown', (e) => this.handlePress(e));
+    swipedetect(document.body, (dir) => this.handlePress(dir));
   }
 
   componentWillMount() {
@@ -562,13 +563,14 @@ class Main extends React.Component {
     var player = gameField[x][y];
     var dest;
     console.log(this.state.backpack)
-    if (e.key === 'ArrowLeft') {
+
+    if (e.key === 'ArrowLeft' || e === 'left') {
       nY--;
-    } else if (e.key === 'ArrowRight') {
+    } else if (e.key === 'ArrowRight' || e === 'right') {
       nY++;
-    } else if (e.key === 'ArrowUp') {
+    } else if (e.key === 'ArrowUp' || e === 'top') {
       nX--;
-    } else if (e.key === 'ArrowDown') {
+    } else if (e.key === 'ArrowDown' || e === 'down') {
       nX++;
     } else {
       return;
