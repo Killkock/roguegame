@@ -5,6 +5,8 @@ function swipedetect(delay, callback){
   var xDown = null;
   var yDown = null;
 
+
+  disableScroll();
   function handleTouchStart(evt) {
     xDown = evt.touches[0].clientX;
     yDown = evt.touches[0].clientY;
@@ -45,6 +47,12 @@ function swipedetect(delay, callback){
     xDown = null;
     yDown = null;
   };
+
+  function disableScroll() {
+    if (window.addEventListener) // older FF
+        window.addEventListener('DOMMouseScroll', preventDefault, false);
+    window.ontouchmove  = preventDefault; // mobile
+  }
 
     // var touchsurface = el,
     // swipedir,
