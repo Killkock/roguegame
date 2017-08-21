@@ -17,16 +17,21 @@ function swipedetect(delay, callback){
         return;
     }
 
-    evt.preventDefault();
 
-    // preventDefault(evt);
-    //
-    // function preventDefault(e) {
-    //   e = e || window.event;
-    //   if (e.preventDefault)
-    //       e.preventDefault();
-    //   e.returnValue = false;
-    // }
+
+
+    function preventDefault(e) {
+      e = e || window.event;
+      if (e.preventDefault)
+          e.preventDefault();
+      e.returnValue = false;
+    }
+
+    function disableScroll() {
+      if (window.addEventListener) // older FF
+          window.addEventListener('DOMMouseScroll', preventDefault, false);
+      window.ontouchmove  = preventDefault; // mobile
+    }
 
     var xUp = evt.touches[0].clientX;
     var yUp = evt.touches[0].clientY;
@@ -54,7 +59,7 @@ function swipedetect(delay, callback){
     if (isSwipeAllowed) callback(direction);
     isSwipeAllowed = false;
     setTimeout(delay, () => isSwipeAllowed = true);
-
+    disableScroll()
     xDown = null;
     yDown = null;
   };
