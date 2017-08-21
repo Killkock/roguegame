@@ -6,7 +6,7 @@ function swipedetect(delay, callback){
   var yDown = null;
 
 
-  disableScroll();
+
   function handleTouchStart(evt) {
     xDown = evt.touches[0].clientX;
     yDown = evt.touches[0].clientY;
@@ -15,6 +15,15 @@ function swipedetect(delay, callback){
   function handleTouchMove(evt) {
     if ( ! xDown || ! yDown ) {
         return;
+    }
+
+    preventDefault(e);
+
+    function preventDefault(e) {
+      e = e || window.event;
+      if (e.preventDefault)
+          e.preventDefault();
+      e.returnValue = false;
     }
 
     var xUp = evt.touches[0].clientX;
