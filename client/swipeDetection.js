@@ -17,14 +17,16 @@ function swipedetect(delay, callback){
         return;
     }
 
-    preventDefault(evt);
+    evt.preventDefault();
 
-    function preventDefault(e) {
-      e = e || window.event;
-      if (e.preventDefault)
-          e.preventDefault();
-      e.returnValue = false;
-    }
+    // preventDefault(evt);
+    //
+    // function preventDefault(e) {
+    //   e = e || window.event;
+    //   if (e.preventDefault)
+    //       e.preventDefault();
+    //   e.returnValue = false;
+    // }
 
     var xUp = evt.touches[0].clientX;
     var yUp = evt.touches[0].clientY;
