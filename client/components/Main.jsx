@@ -5,6 +5,8 @@ import PlayerStats from './PlayerStats.jsx';
 import Shadow from './Shadow.jsx';
 import GameMessages from './GameMessages.jsx';
 import GameStats from './GameStats.jsx';
+import MobileControlBtns from './MobileControlBtns.jsx'
+
 
 import DragManager from '../DragManager.js';
 import swipedetect from '../swipeDetection.js';
@@ -13,7 +15,7 @@ class Main extends React.Component {
   constructor(props) {
     super(props)
     document.body.addEventListener('keydown', (e) => this.handlePress(e));
-    swipedetect(500, (e) => this.handlePress(e));
+    // swipedetect(500, (e) => this.handlePress(e));
   }
 
   componentWillMount() {
@@ -656,45 +658,44 @@ class Main extends React.Component {
   }
 
   render() {
-    return <div id='rogue-container' >
+    return (
+      <div id='rogue-container' >
+        <GameStats
+          stats={this.state.stats}
+          update={() => {
+            this.mounting();
 
-      <GameStats
-        stats={this.state.stats}
-        update={() => {
-          this.mounting();
+          }}
+          visibility={() => {
+              this.setState({ isMapVisible: !this.state.isMapVisible })
+              console.log(this.state.isMapVisible)
+          }}
+        />
 
-        }}
-        visibility={() => {
-            this.setState({ isMapVisible: !this.state.isMapVisible })
-            console.log(this.state.isMapVisible)
-        }}
-      />
-      <PlayerStats
-        health={this.state.player.hp}
-        level={this.state.player.level}
-        exp={this.state.player.experience}
-        stats={this.state.player.calculateStats()}
-        backpack={this.state.backpack}
-        backpackCapacity={this.state.backpackCapacity}
-        items={this.state.player.equipment}
-      />
-    <div id="container-container">
-      <div id="gamefield-container">
+        <PlayerStats
+          health={this.state.player.hp}
+          level={this.state.player.level}
+          exp={this.state.player.experience}
+          stats={this.state.player.calculateStats()}
+          backpack={this.state.backpack}
+          backpackCapacity={this.state.backpackCapacity}
+          items={this.state.player.equipment}
+        />
 
-              <GameField
-                gameField={this.state.gameField}
-                playerLocation={this.state.playerLocation}
-                isVisible={this.state.isMapVisible}
-                gameLevel={this.state.currentGameLevel}
-              />
+        <div id="gamefield-container">
+          <GameField
+            gameField={this.state.gameField}
+            playerLocation={this.state.playerLocation}
+            isVisible={this.state.isMapVisible}
+            gameLevel={this.state.currentGameLevel}
+          />
         </div>
+
+        <Shadow visible={this.state.isFinished} />
+        <GameMessages messages={this.state.consoleMsgs} />
+        <MobileControlBtns onTouchEvent={(e) => this.handlePress(e)}/>
       </div>
-
-          <Shadow visible={this.state.isFinished} />
-          <GameMessages messages={this.state.consoleMsgs} />
-
-          </div>
-
+    )
   }
 }
 
