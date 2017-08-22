@@ -13,6 +13,7 @@ const GameStats = (props) => {
       </ul>
       <button onClick={props.visibility}>Visibility</button>
       <button onClick={props.update}>Update</button>
+      <button onClick={props.shadow}>shadow</button>
     </header>
   )
 

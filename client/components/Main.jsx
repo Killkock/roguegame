@@ -8,15 +8,15 @@ import GameStats from './GameStats.jsx';
 import MobileControlBtns from './MobileControlBtns.jsx'
 
 
-import DragManager from '../DragManager.js';
-import swipedetect from '../swipeDetection.js';
+import { DragManager } from '../DragManager.js';
+import DoubleClick from '../DoubleClick.js';
 
 class Main extends React.Component {
   constructor(props) {
     super(props)
     document.body.addEventListener('keydown', (e) => this.handlePress(e));
-    // swipedetect(500, (e) => this.handlePress(e));
-  }
+    document.body.addEventListener('click', DoubleClick);
+  };
 
   componentWillMount() {
     this.mounting();
@@ -56,13 +56,15 @@ class Main extends React.Component {
       currentGameLevel,
       gameLevels,
       savePreviosSpot: false,
-      gameFieldHeight: 25,
-      gameFieldWidth: 30,
+      gameFieldHeight: 40,
+      gameFieldWidth: 40,
       consoleMsgs: [],
       player: player,
-      backpack: new Array(20),
-      backpackCapacity: 20,
-      isMousedown: false
+      backpack: new Array(10),
+      backpackCapacity: 10,
+      isMousedown: false,
+      isShadowVisible: false,
+      shadowContent: null
     })
   }
 
@@ -278,8 +280,8 @@ class Main extends React.Component {
 
     var gameField = [];
     var roomHeads = [];
-    var height = 25;
-    var width = 30;
+    var height = 40;
+    var width = 40;
     var roomsAmount = 15;
     var stats;
 
@@ -371,8 +373,8 @@ class Main extends React.Component {
       var place = chooseCellForRoom(size);
       var x = place.x;
       var y = place.y;
-      var maxHeight = (x + height) < 30 ? x + height : 30;
-      var maxWidth = (y + width) < 25 ? y + width : 25;
+      var maxHeight = (x + height) < 40 ? x + height : 40;
+      var maxWidth = (y + width) < 40 ? y + width : 40;
 
       for (var i = x; i < maxHeight; i++) {
         for (var j = y; j < maxWidth; j++) {
@@ -428,8 +430,8 @@ class Main extends React.Component {
       return place;
 
       function random() {
-        var x = Math.floor(Math.random() * 25);
-        var y = Math.floor(Math.random() * 30);
+        var x = Math.floor(Math.random() * 40);
+        var y = Math.floor(Math.random() * 40);
 
         return {
           x: x,
@@ -594,7 +596,11 @@ class Main extends React.Component {
       }
       console.log(index)
       if (!index && index !== 0) {
-        console.log('you cant get this item, your backpack is full');
+        this.setState({
+          isShadowVisible: true,
+          shadowMessage: 'You cant get this item, your backpack is full'
+        })
+
         return false;
       }
 
@@ -670,6 +676,8 @@ class Main extends React.Component {
               this.setState({ isMapVisible: !this.state.isMapVisible })
               console.log(this.state.isMapVisible)
           }}
+          shadow={() => this.setState({ isShadowVisible: !this.state.isShadowVisible })}
+
         />
 
         <PlayerStats
@@ -691,7 +699,11 @@ class Main extends React.Component {
           />
         </div>
 
-        <Shadow visible={this.state.isFinished} />
+        <Shadow
+          visible={this.state.isShadowVisible}
+          onClick={() => this.setState({ isShadowVisible: false })}
+          message={this.state.shadowContent}
+        />
         <GameMessages messages={this.state.consoleMsgs} />
         <MobileControlBtns onTouchEvent={(e) => this.handlePress(e)}/>
       </div>

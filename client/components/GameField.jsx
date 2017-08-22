@@ -33,9 +33,9 @@ const GameField = (props) => {
   function calculateVisibleArea(x, y) {
     var result = [];
     for (let i = x - 2; i <= x + 2; i++) {
-      if (i < 0 || i > 24) continue;
+      if (i < 0 || i > 39) continue;
       for (let j = y - 2; j <= y + 2; j++) {
-        if (j < 0 || j > 29) continue;
+        if (j < 0 || j > 39) continue;
         result.push([i, j]);
       }
     }

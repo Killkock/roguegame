@@ -5,8 +5,12 @@ const Shadow = (props) => {
 
 
   return (
-    <div className={`shadow ${visible}`}>
-      <button>Click me</button>
+    <div className={`shadow ${visible}`} onClick={props.onClick}>
+      <div>
+        <p>props.message</p>
+        <button>Click me</button>
+      </div>
+
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import Main from './components/Main.jsx';
 
 var component;
+var mobileDevice = Modernizr.touch;
 
 var DragManager = new function() {
 
@@ -18,8 +19,8 @@ var DragManager = new function() {
     dragObject.elem = elem;
     dragObject.cells = document.querySelectorAll(`.${elem.dataset.destination}.droppable`);
     // запомним, что элемент нажат на текущих координатах pageX/pageY
-    dragObject.downX = e.pageX;
-    dragObject.downY = e.pageY;
+    dragObject.downX = mobileDevice ? e.originalEvent.touches[0].pageX : e.pageX;
+    dragObject.downY = mobileDevice ? e.originalEvent.touches[0].pageY : e.pageY;
     dragObject.destination = elem.dataset.destination;
     dragObject.parent = elem.parentNode;
 
@@ -42,8 +43,8 @@ var DragManager = new function() {
     if (!dragObject.elem) return; // элемент не зажат
 
     if (!dragObject.avatar) { // если перенос не начат...
-      var moveX = e.pageX - dragObject.downX;
-      var moveY = e.pageY - dragObject.downY;
+      var moveX = (mobileDevice ? e.originalEvent.touches[0].pageX : e.pageX) - dragObject.downX;
+      var moveY = (mobileDevice ? e.originalEvent.touches[0].pageY : e.pageY) - dragObject.downY;
 
       emphasizeRightCell(dragObject.cells, true);
       // если мышь передвинулась в нажатом состоянии недостаточно далеко
@@ -68,8 +69,8 @@ var DragManager = new function() {
     }
 
     // отобразить перенос объекта при каждом движении мыши
-    dragObject.avatar.style.left = e.pageX - dragObject.shiftX + 'px';
-    dragObject.avatar.style.top = e.pageY - dragObject.shiftY + 'px';
+    dragObject.avatar.style.left = (mobileDevice ? e.originalEvent.touches[0].pageX : e.pageX) - dragObject.shiftX + 'px';
+    dragObject.avatar.style.top = (mobileDevice ? e.originalEvent.touches[0].pageY : e.pageY) - dragObject.shiftY + 'px';
 
     return false;
   }
@@ -110,7 +111,6 @@ var DragManager = new function() {
 
     avatar.old = old;
 
-    // функция для отмены переноса
     avatar.rollback = function() {
       old.parent.insertBefore(avatar, old.nextSibling);
       avatar.style.position = old.position;
@@ -125,8 +125,6 @@ var DragManager = new function() {
   function startDrag(e) {
     var avatar = dragObject.avatar;
 
-    // инициировать начало переноса
-    // document.body.appendChild(avatar);
     avatar.style.zIndex = 9999;
     avatar.style.position = 'absolute';
   }
@@ -139,10 +137,12 @@ var DragManager = new function() {
 
     if (elem == null) return null;
 
-    // .${dragObject.destination}
-
     return elem.closest(`.${dragObject.destination}.droppable`) || elem.closest('.back-droppable');
   }
+
+  document.ontouchstart = onMouseDown;
+  document.ontouchend = onMouseUp;
+  document.outouchmove = onMouseMove;
 
   document.onmousemove = onMouseMove;
   document.onmouseup = onMouseUp;
@@ -152,7 +152,6 @@ var DragManager = new function() {
   this.onDragCancel = function(dragObject) {};
 
 };
-
 
 function getCoords(elem) { // кроме IE8-
   var box = elem.getBoundingClientRect();
@@ -164,58 +163,37 @@ function getCoords(elem) { // кроме IE8-
 
 }
 
-
-
 DragManager.onDragCancel = function(dragObject) {
   dragObject.avatar.rollback();
 };
 
 DragManager.onDragEnd = function(dragObject, dropElem) {
   var dropChild = dropElem.children[0];
-  dragObject.elem.style.position = 'static'
-  console.log(dropChild)
-  console.log(dragObject.root)
+  dragObject.elem.style.position = 'static';
+
   if (dropChild) {
     if (dragObject.root === 'player') {
-      console.log('were rying to swap items between player and backpack')
       dragObject.avatar.rollback();
-      console.log('item was returned to its origin place')
     } else {
-
       if (dropElem.classList.contains('back-droppable')) {
         swapItemsInsideBackpack(dragObject.parent, dropElem)
       } else {
         swapItemsBeetween(dragObject, dropChild);
-        // dropElem.appendChild(dragObject.elem.cloneNode(true));
-        // dropChild.remove();
       }
     }
-
   } else {
-    // dropElem.appendChild(dragObject.elem.cloneNode(true));
     if (dragObject.root === 'player') {
       deleteItemFromPlayer(dragObject.destination);
       addItemToBackpack(dragObject.item, dropElem);
     } else {
       if (dropElem.classList.contains('back-droppable')) {
-        console.log('we swap items inside backpack')
-        console.log(dropElem)
         swapItemsInsideBackpack(dragObject.parent, dropElem);
-        console.log('backpack swapping completed')
       } else {
-        console.log('deletion startings')
         deleteItemFromBackpack(dragObject.parent);
-        console.log('problem isnt in deletion')
-        console.log('adding item to player')
         addItemToPlayer(dragObject.destination, dragObject.item);
-        console.log('player adding completed')
       }
-
     }
-
   }
-
-
 
 };
 
@@ -235,7 +213,7 @@ function findChildPosition(elem) {
   var parent = child.parentNode;
   var position;
   for (var i = 0; i < parent.children.length; i++) {
-    console.log(parent, child)
+
     if (child === parent.children[i]) {
       position = i;
       return position;
@@ -246,7 +224,7 @@ function findChildPosition(elem) {
 function deleteItemFromBackpack(item) {
   var backpack = component.state.backpack;
   var id = findChildPosition(item);
-  console.log(backpack, id, item)
+
   backpack[id] = null;
 
   component.setState({ backpack });
@@ -281,9 +259,9 @@ function swapItemsBeetween(fromBackpack, toPlayer) {
   var backpack = component.state.backpack;
   var playerId = fromBackpack.destination;
   var backpackId = findChildPosition(fromBackpack.parent);
-  // console.log(player, '***', equipment, backpack, 'before')
+
   [equipment[playerId], backpack[backpackId]] = [backpack[backpackId], equipment[playerId]];
-  // console.log(player, '***', equipment, backpack, 'after')
+
   component.setState({
     player,
     backpack
@@ -295,13 +273,14 @@ function swapItemsInsideBackpack(first, second) {
   var firstId = findChildPosition(first);
   var secondId = findChildPosition(second);
   var backpack = component.state.backpack;
-  // console.log(firstId, secondId, backpack[firstId], backpack[secondId], 'heyheyehey')
-  // console.log(backpack, 'before')
 
   [backpack[firstId], backpack[secondId]] = [backpack[secondId], backpack[firstId]];
-  // console.log(backpack, 'after')
+
   component.setState({ backpack })
 }
 
 
-export default DragManager;
+export {
+  DragManager,
+  findChildPosition
+}

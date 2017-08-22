@@ -1,36 +1,40 @@
 
-/*.container {
-	width: 1150px;
-	margin: 0 auto;
-}*/
-
 body {
 	overflow: hidden;
 }
 
 .shadow {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	bottom: 0;
-	right: 200px;
-	left: 200px;
+	left: 0;
+	right: 0;
 	pointer-events: none;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	background: rgb(255, 255, 255);
 	opacity: 0;
+
+	-webkit-transition: opacity 1s ease-in-out;
+	-moz-transition: opacity 1s ease-in-out;
+	transition: opacity 1s ease-in-out;
+}
+
+.shadow > div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-width: 400px;
+	min-height: calc(400px * 0.8);
+	background: url('scroll.png') no-repeat;
+	background-size: cover;
 }
 
 .visible {
-	opacity: 1;
-
+	opacity: 0.7;
+	pointer-events: all;
 }
-
-
-/*#rogue-container *:not(aside):not(#player-items):not(.droppable):not(.items-flex) {
-	visibility: hidden !important;
-}*/
 
 
 #gamefield-container {
@@ -44,7 +48,7 @@ body {
 
 #gameField {
 	position: absolute;
-  width: 750px;
+  width: 1000px;
 }
 
 #rogue-container {
@@ -78,6 +82,10 @@ aside {
   border: 2px solid black;
 	background: #232323;
 	color: white;
+
+	-webkit-transition: width 1s ease-in-out;
+	-moz-transition: width 1s ease-in-out;
+	transition: width 1s ease-in-out;
 }
 
 /* player items */
@@ -166,7 +174,7 @@ aside {
 /*  Backpack   */
 
 #backpack {
-	width: 250px;
+	width: 200px;
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
@@ -519,6 +527,19 @@ img.draggable {
 
 @media screen and (max-width: 580px) {
 	aside {
+		position: fixed;
+		width: 0;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		overflow: hidden;
+	}
+
+	#gamefield-container {
+		height: 100vh;
+	}
+
+	header {
 		display: none;
 	}
 
