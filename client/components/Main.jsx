@@ -64,7 +64,8 @@ class Main extends React.Component {
       backpackCapacity: 10,
       isMousedown: false,
       isShadowVisible: false,
-      shadowContent: null
+      shadowContent: null,
+      isAsideOpened: false,
     })
   }
 
@@ -688,6 +689,7 @@ class Main extends React.Component {
           backpack={this.state.backpack}
           backpackCapacity={this.state.backpackCapacity}
           items={this.state.player.equipment}
+          isOpened={this.state.isAsideOpened}
         />
 
         <div id="gamefield-container">
@@ -698,7 +700,7 @@ class Main extends React.Component {
             gameLevel={this.state.currentGameLevel}
           />
         </div>
-
+        <button id="aside-open" onClick={() => this.setState({ isAsideOpened: !this.state.isAsideOpened })}>OO</button>
         <Shadow
           visible={this.state.isShadowVisible}
           onClick={() => this.setState({ isShadowVisible: false })}

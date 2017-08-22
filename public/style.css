@@ -88,6 +88,16 @@ aside {
 	transition: width 1s ease-in-out;
 }
 
+aside.opened {
+	width: 250px;
+}
+
+#aside-open {
+	position: fixed;
+	right: 0;
+	top: 50%;
+}
+
 /* player items */
 
 #player-items {

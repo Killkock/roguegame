@@ -4,9 +4,9 @@ import Backpack from './Backpack.jsx';
 import PlayerItems from './PlayerItems.jsx';
 
 const PlayerStats = (props) => {
-
+  var opened = props.isOpened ? 'opened' : '';
   return (
-    <aside>
+    <aside className={opened}>
       <div id="player-stats">
         <p>Health: {'0' && props.health}</p>
         <p>Level: {'0' && props.level  }</p>
