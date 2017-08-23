@@ -6,10 +6,12 @@ import Shadow from './Shadow.jsx';
 import GameMessages from './GameMessages.jsx';
 import GameStats from './GameStats.jsx';
 import MobileControlBtns from './MobileControlBtns.jsx'
+import PlayerState from './PlayerState.jsx';
 
 
 import { DragManager } from '../DragManager.js';
 import DoubleClick from '../DoubleClick.js';
+import AdjustViewport from '../AdjustViewport.js';
 
 class Main extends React.Component {
   constructor(props) {
@@ -17,6 +19,10 @@ class Main extends React.Component {
     document.body.addEventListener('keydown', (e) => this.handlePress(e));
     document.body.addEventListener('click', DoubleClick);
   };
+
+  componentDidMount() {
+    AdjustViewport();
+  }
 
   componentWillMount() {
     this.mounting();
@@ -60,11 +66,11 @@ class Main extends React.Component {
       gameFieldWidth: 40,
       consoleMsgs: [],
       player: player,
-      backpack: new Array(10),
-      backpackCapacity: 10,
+      backpack: new Array(8),
+      backpackCapacity: 8,
       isMousedown: false,
       isShadowVisible: false,
-      shadowContent: null,
+      shadowContent: {},
       isAsideOpened: false,
     })
   }
@@ -121,14 +127,15 @@ class Main extends React.Component {
     Enemy.prototype = Object.create(Creation.prototype);
 
     Enemy.prototype.attack = function() {
-      return (Math.round(Math.random() * 8) + 4) * this.level;
+      return (Math.round(Math.random() * 20) + 5) * this.level;
     }
 
     function Player() {
       Creation.call(this, 'player')
       this.level = 1;
       this.experience = 0;
-      this.hp = 100 * this.level;
+      this.hp = 100;
+      this.maxHP = 100 + ( 100 * ( this.level - 1) );
       this.equipment = {
         helmet: null,
         necklace: null,
@@ -348,11 +355,10 @@ class Main extends React.Component {
           return new env.Pill();
         } else if (random > 0.92) {
           enemies++;
-          return new env.Enemy();
+          return new env.Enemy(level + 1);
         } else if (random < 0.02) {
           weapons++;
           var equip = new env.Equipment();
-          // console.log(equip.type, equip.damage, equip.armor)
           return equip;
         } else {
           return new env.Space();
@@ -546,6 +552,8 @@ class Main extends React.Component {
   handlePress(e) {
     if (this.state.isFinished) return;
     if (this.state.isMousedown) return;
+    if (this.state.isShadowVisible) return;
+
     var savePreviousSpot = this.state.savePreviousSpot;
     var [x, y] = this.state.playerLocation;
     var nX = x;
@@ -554,18 +562,20 @@ class Main extends React.Component {
     var player = gameField[x][y];
     var dest;
     console.log(this.state.backpack)
-
-    if (e.key === 'ArrowLeft' || e === 'left') {
+    console.log(e.key)
+    if (e.key === 'a' || e === 'left') {
       nY--;
-    } else if (e.key === 'ArrowRight' || e === 'right') {
+    } else if (e.key === 'd' || e === 'right') {
       nY++;
-    } else if (e.key === 'ArrowUp' || e === 'up') {
+    } else if (e.key === 'w' || e === 'up') {
       nX--;
-    } else if (e.key === 'ArrowDown' || e === 'down') {
+    } else if (e.key === 's' || e === 'down') {
       nX++;
     } else {
       return;
     }
+
+    AdjustViewport();
 
     const changePlayersLocation = () => {
       var playerLocations = this.state.playerLocations;
@@ -682,9 +692,6 @@ class Main extends React.Component {
         />
 
         <PlayerStats
-          health={this.state.player.hp}
-          level={this.state.player.level}
-          exp={this.state.player.experience}
           stats={this.state.player.calculateStats()}
           backpack={this.state.backpack}
           backpackCapacity={this.state.backpackCapacity}
@@ -692,19 +699,26 @@ class Main extends React.Component {
           isOpened={this.state.isAsideOpened}
         />
 
+
         <div id="gamefield-container">
           <GameField
             gameField={this.state.gameField}
             playerLocation={this.state.playerLocation}
             isVisible={this.state.isMapVisible}
             gameLevel={this.state.currentGameLevel}
+            health={this.state.player.hp}
+            level={this.state.player.level}
+            exp={this.state.player.experience}
+
           />
+          <PlayerState />
         </div>
         <button id="aside-open" onClick={() => this.setState({ isAsideOpened: !this.state.isAsideOpened })}>OO</button>
         <Shadow
           visible={this.state.isShadowVisible}
           onClick={() => this.setState({ isShadowVisible: false })}
-          message={this.state.shadowContent}
+          content={this.state.shadowContent}
+          component={this}
         />
         <GameMessages messages={this.state.consoleMsgs} />
         <MobileControlBtns onTouchEvent={(e) => this.handlePress(e)}/>

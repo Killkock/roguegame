@@ -26,8 +26,6 @@ const MobileControlBtns = (props) => {
       }
     }
 
-
-
   return (
     <div id="mobile-buttons">
       <div id='top' onTouchStart={(e) => mouseDown(e)} data-direction='up'><i className="fa fa-arrow-up" aria-hidden="true"></i></div>

@@ -178,7 +178,7 @@ DragManager.onDragEnd = function(dragObject, dropElem) {
       if (dropElem.classList.contains('back-droppable')) {
         swapItemsInsideBackpack(dragObject.parent, dropElem)
       } else {
-        swapItemsBeetween(dragObject, dropChild);
+        swapItemsBeetween(dragObject.destination, findChildPosition(dragObject.parent));
       }
     }
   } else {
@@ -223,7 +223,10 @@ function findChildPosition(elem) {
 
 function deleteItemFromBackpack(item) {
   var backpack = component.state.backpack;
-  var id = findChildPosition(item);
+  var id = item;
+  if ( !(typeof(item) === 'number') ) {
+    var id = findChildPosition(item);
+  }
 
   backpack[id] = null;
 
@@ -253,12 +256,10 @@ function addItemToPlayer(destination, item) {
   component.setState({ player })
 }
 
-function swapItemsBeetween(fromBackpack, toPlayer) {
+function swapItemsBeetween(playerId, backpackId) {
   var player = component.state.player;
   var equipment = player.equipment;
   var backpack = component.state.backpack;
-  var playerId = fromBackpack.destination;
-  var backpackId = findChildPosition(fromBackpack.parent);
 
   [equipment[playerId], backpack[backpackId]] = [backpack[backpackId], equipment[playerId]];
 
@@ -282,5 +283,9 @@ function swapItemsInsideBackpack(first, second) {
 
 export {
   DragManager,
-  findChildPosition
+  findChildPosition,
+  swapItemsBeetween,
+  deleteItemFromPlayer,
+  deleteItemFromBackpack,
+  addItemToBackpack
 }

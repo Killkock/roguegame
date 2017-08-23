@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Cell from './Cell.jsx'
+import PlayerState from './PlayerState.jsx';
 
 const GameField = (props) => {
   var field = props.gameField;
@@ -47,6 +49,7 @@ const GameField = (props) => {
       <div id='gameField'>
         {cells}
       </div>
+      
     </main>
   )
 }
