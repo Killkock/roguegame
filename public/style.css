@@ -40,7 +40,7 @@ a:hover {
 	align-items: center;
 	background: rgba(255, 255, 255, 0.7);
 	opacity: 0;
-
+	z-index: 9999;
 	-webkit-transition: opacity 0.4s ease-in-out;
 	-moz-transition: opacity 0.4s ease-in-out;
 	transition: opacity 0.4s ease-in-out;
@@ -689,7 +689,7 @@ img.draggable {
 		top: 0;
 		left: 0;
 		height: 100vh;
-		z-index: 9999;
+		z-index: 999;
 		overflow: hidden;
 	}
 
