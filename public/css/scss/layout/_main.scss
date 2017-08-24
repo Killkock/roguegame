@@ -1,0 +1,14 @@
+#main-container {
+	position: relative;
+	width: calc(100vw - 600px);
+	height: calc(100vh - 56px);
+	float: left;
+	overflow: auto;
+	box-sizing: border-box;
+
+  main {
+  	position: absolute;
+    width: $cell-size * $cell-in-row;
+  }
+
+}

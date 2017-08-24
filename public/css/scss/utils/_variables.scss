@@ -1,0 +1,37 @@
+$cell-size: 25px;
+$cell-in-row: 40;
+
+$img-folder: '../img/';
+
+$health-bar-color: red;
+$exp-bar-color: gold;
+
+$player: $img-folder + 'wizard-face.png';
+$enemy: $img-folder + 'griffin-symbol.png';
+
+$wall: $img-folder + 'tile106.png';
+$base-wall: $img-folder + 'second-wall.jpg';
+$dung-wall: $img-folder + 'lava.png';
+
+$room: $img-folder + 'tile123.png';
+$base-room: $img-folder + 'second-ground.png';
+$dung-room: $img-folder + 'dungeon-ground.png';
+
+$door: $img-folder + 'steel-door.png';
+
+$boss: $img-folder + 'vampire-cape.png';
+
+$helmet: $img-folder + 'helmet.svg';
+$necklace: $img-folder + 'necklace.svg';
+$sword: $img-folder + 'sword.svg';
+$armor: $img-folder + 'armor.svg';
+$shield: $img-folder + 'shield.svg';
+$bracers: $img-folder + 'bracers.svg';
+$daggers: $img-folder + 'daggers.svg';
+$ring: $img-folder + 'ring.svg';
+$pants: $img-folder + 'pants.svg';
+$leg-armor: $img-folder + 'leg-armor.svg';
+$pill: $img-folder + 'pill.png';
+$backpack-cell: $img-folder + 'backpackCell.png';
+
+$invisible-cell: #232323;

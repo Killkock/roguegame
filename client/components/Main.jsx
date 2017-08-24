@@ -700,7 +700,7 @@ class Main extends React.Component {
         />
 
 
-        <div id="gamefield-container">
+      <div id="main-container">
           <GameField
             gameField={this.state.gameField}
             playerLocation={this.state.playerLocation}

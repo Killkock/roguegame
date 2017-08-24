@@ -1,7 +1,7 @@
 import Main from './components/Main.jsx';
 
 function AdjustViewport() {
-  var gamefield = document.getElementById('gamefield-container'),
+  var gamefield = document.getElementById('main-container'),
     parentPos = gamefield.getBoundingClientRect(),
     childrenPos = document.querySelector('.cell.player').getBoundingClientRect(),
     relativePos = {},

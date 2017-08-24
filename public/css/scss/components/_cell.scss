@@ -1,0 +1,145 @@
+.cell {
+  width: $cell-size;
+	padding-top: $cell-size;
+  float: left;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+  background-position: center !important;
+	background-size: cover !important;
+
+  &.player {
+    @include main-background($player);
+
+    &.basement { @include base-background($player); }
+    &.dungeon { @include dung-background($player); }
+  }
+
+  &.enemy {
+    @include main-background($enemy);
+
+    &.basement { @include base-background($enemy); }
+    &.dungeon { @include dung-background($enemy); }
+  }
+
+  &.wall {
+    background: url($wall);
+
+    &.basement { background: url($base-wall); }
+    &.dungeon { background: url($dung-wall); }
+  }
+
+  &.space {
+    background: url($room);
+
+    &.basement { background: url($base-room); }
+    &.dungeon { background: url($dung-room); }
+  }
+
+  &.road {
+    background: url($room);
+
+    &.basement { background: url($base-room); }
+    &.dungeon { background: url($dung-room); }
+  }
+
+  &.door {
+    @include main-background($door);
+
+    &.basement { @include base-background($door); }
+    &.dungeon { @include dung-background($door); }
+  }
+
+  &.boss {
+    @include main-background($boss);
+
+    &.basement { @include base-background($boss); }
+    &.dungeon { @include dung-background($boss); }
+  }
+
+  &.door {
+    @include main-background($door);
+
+    &.basement { @include base-background($door); }
+    &.dungeon { @include dung-background($door); }
+  }
+
+  &.helmet {
+    @include main-background($helmet);
+
+    &.basement { @include base-background($helmet); }
+    &.dungeon { @include dung-background($helmet); }
+  }
+
+  &.necklace {
+    @include main-background($necklace);
+
+    &.basement { @include base-background($necklace); }
+    &.dungeon { @include dung-background($necklace); }
+  }
+
+  &.sword {
+    @include main-background($sword);
+
+    &.basement { @include base-background($sword); }
+    &.dungeon { @include dung-background($sword); }
+  }
+
+  &.armor {
+    @include main-background($armor);
+
+    &.basement { @include base-background($armor); }
+    &.dungeon { @include dung-background($armor); }
+  }
+
+  &.shield {
+    @include main-background($shield);
+
+    &.basement { @include base-background($shield); }
+    &.dungeon { @include dung-background($shield); }
+  }
+
+  &.bracers {
+    @include main-background($bracers);
+
+    &.basement { @include base-background($bracers); }
+    &.dungeon { @include dung-background($bracers); }
+  }
+
+  &.daggers {
+    @include main-background($daggers);
+
+    &.basement { @include base-background($daggers); }
+    &.dungeon { @include dung-background($daggers); }
+  }
+
+  &.ring {
+    @include main-background($ring);
+
+    &.basement { @include base-background($ring); }
+    &.dungeon { @include dung-background($ring); }
+  }
+
+  &.pants {
+    @include main-background($pants);
+
+    &.basement { @include base-background($pants); }
+    &.dungeon { @include dung-background($pants); }
+  }
+
+  &.leg-armor {
+    @include main-background($leg-armor);
+
+    &.basement { @include base-background($leg-armor); }
+    &.dungeon { @include dung-background($leg-armor); }
+  }
+
+  &.pill {
+    @include main-background($pill);
+
+    &.basement { @include base-background($pill); }
+    &.dungeon { @include dung-background($pill); }
+  }
+
+  &.invisible { background: $invisible-cell; }
+
+}

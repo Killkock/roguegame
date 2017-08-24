@@ -1,0 +1,30 @@
+#player-items {
+	margin: 0 auto;
+	width: 250px;
+
+  .droppable {
+    width: 40px;
+  	height: 40px;
+  	margin: 10px;
+  	border: 2px solid white;
+    background-image: url($backpack-cell);
+		background-size: contain;
+		@include flex-center();
+
+    &.helmet, &.necklace, &.pants, &.leg-armor {
+      margin: 10px auto;
+    }
+
+    &.appropriate-item {
+      -webkit-box-shadow: 2px 2px 28px 7px rgba(255,255,255,1);
+    	   -moz-box-shadow: 2px 2px 28px 7px rgba(255,255,255,1);
+    	        box-shadow: 2px 2px 28px 7px rgba(255,255,255,1);
+    }
+  }
+
+  .items-flex {
+    display: flex;
+  	justify-content: space-around;
+  }
+
+}

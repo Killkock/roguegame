@@ -1,0 +1,49 @@
+#mobile-buttons {
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  width: 130px;
+  height: 130px;
+	display: none;
+
+
+  div {
+    position: absolute;
+    padding: 15px;
+    background: lightgrey;
+    opacity: 0.7;
+    border-radius: 20%;
+
+    &.pressed {
+      background: #232323;
+      color: red;
+    }
+
+    &#top, &#bottom {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &#top {
+      top: 0;
+    }
+
+    &#bottom {
+      bottom: 0;
+    }
+
+    &#left, &#right {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &#left {
+      left: 0;
+    }
+
+    &#right {
+      right: 0;
+    }
+
+  }
+}

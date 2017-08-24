@@ -1,0 +1,80 @@
+
+@media screen and (max-width: 1000px) {
+	.log-info, .messages {
+		width: 150px;
+	}
+
+	#main-container {
+		width: calc(100vw - 450px);
+	}
+}
+
+@media screen and (max-width: 920px) {
+	#mobile-buttons {
+		display: block;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.log-info, .messages {
+		display: none;
+	}
+
+	#main-container {
+		width: calc(100% - 300px);
+	}
+}
+
+@media screen and (max-width: 700px) {
+	aside {
+		width: 250px;
+	}
+
+	#main-container {
+		width: calc(100vw - 250px);
+	}
+
+	#backpack {
+		width: 160px;
+	}
+
+	#backpack > * {
+		width: 40px;
+		height: 40px;
+	}
+
+	#player-items .droppable{
+		width: 40px;
+		height: 40px;
+		margin: 5px auto !important;
+	}
+
+	.items-flex {
+		width: 200px;
+		margin: 0 auto;
+	}
+
+
+}
+
+@media screen and (max-width: 580px) {
+	aside {
+		position: fixed;
+		width: 0;
+		top: 0;
+		left: 0;
+		height: 100vh;
+		z-index: 999;
+		overflow: hidden;
+	}
+
+	#main-container {
+		height: 100vh;
+    width: 100vw;
+	}
+
+	header {
+		display: none;
+	}
+
+}

@@ -1,0 +1,31 @@
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin transition($property, $duration) {
+  -webkit-transition: $property $duration ease-in-out;
+     -moz-transition: $property $duration ease-in-out;
+      -ms-transition: $property $duration ease-in-out;
+          transition: $property $duration ease-in-out;
+}
+
+@mixin main-background($first) {
+  background: url($first), url($room);
+}
+
+@mixin base-background($first) {
+  background: url($first), url($base-room);
+}
+
+@mixin dung-background($first) {
+  background: url($first), url($dung-room);
+}
+
+@mixin flex-center() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

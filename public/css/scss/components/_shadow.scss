@@ -1,0 +1,93 @@
+.shadow {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	pointer-events: none;
+	background: rgba(255, 255, 255, 0.7);
+	opacity: 0;
+	z-index: 9999;
+
+  @include transition(opacity, 0.4s);
+	@include flex-center();
+
+  div {
+    position: relative;
+  	min-width: 300px;
+  	min-height: calc(300px * 0.8);
+  	background: url('scroll.png') no-repeat;
+  	background-size: cover;
+
+    a {
+      display: block;
+    	color: white;
+    	text-decoration: none;
+      padding: 10px;
+      box-sizing: border-box;
+    	background: #951F1E;
+    	background-size: cover;
+    	float: right;
+
+      @include border-radius(10%);
+
+      &:first-child {
+        float: left;
+      }
+
+      &:visited {
+        color: white;
+      }
+
+      &:active {
+        color: white;
+      }
+
+      &:hover {
+        background: white;
+      	color: #951F1E;
+      }
+    }
+
+    img {
+      width: 50px;
+    	height: 50px;
+    	position: absolute;
+    	top: 30%;
+    	left: 50%;
+    	transform: translate(-50%, -50%);
+    }
+
+    p {
+      position: absolute;
+    	top: 50%;
+    	text-align: center;
+    	transform: translateY(-50%);
+    	width: 100%;
+
+      span {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  #shadow-buttons {
+    width: 60%;
+  	position: absolute;
+  	bottom: 15%;
+  	left: 50%;
+  	transform: translate(-50%, -50%);
+  }
+
+  #close {
+  	position: absolute;
+  	top: 5%;
+  	right: 5%;
+  }
+
+  &.visible {
+  	opacity: 1;
+  	pointer-events: all;
+  }
+
+}

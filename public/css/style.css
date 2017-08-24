@@ -1,0 +1,470 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h3, h4, h5, h6, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: hidden; }
+
+a {
+  color: black;
+  text-decoration: none; }
+  a:visited {
+    color: black; }
+  a:active {
+    color: black; }
+  a:hover {
+    cursor: pointer; }
+
+img.draggable {
+  width: 30px;
+  height: 30px; }
+  img.draggable:hover {
+    cursor: pointer; }
+
+aside {
+  float: left;
+  width: 300px;
+  height: calc(100vh - 56px);
+  box-sizing: border-box;
+  background: #232323;
+  color: white;
+  overflow-y: auto;
+  -webkit-transition: width 1s ease-in-out;
+  -moz-transition: width 1s ease-in-out;
+  -ms-transition: width 1s ease-in-out;
+  transition: width 1s ease-in-out; }
+  aside.opened {
+    width: 250px; }
+
+#aside-open {
+  position: fixed;
+  right: 0;
+  top: 50%; }
+
+header {
+  padding: 20px;
+  background: #232323;
+  color: white; }
+  header li {
+    margin-left: 10px;
+    display: inline; }
+  header button {
+    float: right; }
+
+#main-container {
+  position: relative;
+  width: calc(100vw - 600px);
+  height: calc(100vh - 56px);
+  float: left;
+  overflow: auto;
+  box-sizing: border-box; }
+  #main-container main {
+    position: absolute;
+    width: 1000px; }
+
+#backpack {
+  width: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  margin-top: 20px; }
+  #backpack div {
+    width: 50px;
+    height: 50px;
+    background-image: url("../img/backpackCell.png");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+
+.cell {
+  width: 25px;
+  padding-top: 25px;
+  float: left;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center !important;
+  background-size: cover !important; }
+  .cell.player {
+    background: url("../img/wizard-face.png"), url("../img/tile123.png"); }
+    .cell.player.basement {
+      background: url("../img/wizard-face.png"), url("../img/second-ground.png"); }
+    .cell.player.dungeon {
+      background: url("../img/wizard-face.png"), url("../img/dungeon-ground.png"); }
+  .cell.enemy {
+    background: url("../img/griffin-symbol.png"), url("../img/tile123.png"); }
+    .cell.enemy.basement {
+      background: url("../img/griffin-symbol.png"), url("../img/second-ground.png"); }
+    .cell.enemy.dungeon {
+      background: url("../img/griffin-symbol.png"), url("../img/dungeon-ground.png"); }
+  .cell.wall {
+    background: url("../img/tile106.png"); }
+    .cell.wall.basement {
+      background: url("../img/second-wall.jpg"); }
+    .cell.wall.dungeon {
+      background: url("../img/lava.png"); }
+  .cell.space {
+    background: url("../img/tile123.png"); }
+    .cell.space.basement {
+      background: url("../img/second-ground.png"); }
+    .cell.space.dungeon {
+      background: url("../img/dungeon-ground.png"); }
+  .cell.road {
+    background: url("../img/tile123.png"); }
+    .cell.road.basement {
+      background: url("../img/second-ground.png"); }
+    .cell.road.dungeon {
+      background: url("../img/dungeon-ground.png"); }
+  .cell.door {
+    background: url("../img/steel-door.png"), url("../img/tile123.png"); }
+    .cell.door.basement {
+      background: url("../img/steel-door.png"), url("../img/second-ground.png"); }
+    .cell.door.dungeon {
+      background: url("../img/steel-door.png"), url("../img/dungeon-ground.png"); }
+  .cell.boss {
+    background: url("../img/vampire-cape.png"), url("../img/tile123.png"); }
+    .cell.boss.basement {
+      background: url("../img/vampire-cape.png"), url("../img/second-ground.png"); }
+    .cell.boss.dungeon {
+      background: url("../img/vampire-cape.png"), url("../img/dungeon-ground.png"); }
+  .cell.door {
+    background: url("../img/steel-door.png"), url("../img/tile123.png"); }
+    .cell.door.basement {
+      background: url("../img/steel-door.png"), url("../img/second-ground.png"); }
+    .cell.door.dungeon {
+      background: url("../img/steel-door.png"), url("../img/dungeon-ground.png"); }
+  .cell.helmet {
+    background: url("../img/helmet.svg"), url("../img/tile123.png"); }
+    .cell.helmet.basement {
+      background: url("../img/helmet.svg"), url("../img/second-ground.png"); }
+    .cell.helmet.dungeon {
+      background: url("../img/helmet.svg"), url("../img/dungeon-ground.png"); }
+  .cell.necklace {
+    background: url("../img/necklace.svg"), url("../img/tile123.png"); }
+    .cell.necklace.basement {
+      background: url("../img/necklace.svg"), url("../img/second-ground.png"); }
+    .cell.necklace.dungeon {
+      background: url("../img/necklace.svg"), url("../img/dungeon-ground.png"); }
+  .cell.sword {
+    background: url("../img/sword.svg"), url("../img/tile123.png"); }
+    .cell.sword.basement {
+      background: url("../img/sword.svg"), url("../img/second-ground.png"); }
+    .cell.sword.dungeon {
+      background: url("../img/sword.svg"), url("../img/dungeon-ground.png"); }
+  .cell.armor {
+    background: url("../img/armor.svg"), url("../img/tile123.png"); }
+    .cell.armor.basement {
+      background: url("../img/armor.svg"), url("../img/second-ground.png"); }
+    .cell.armor.dungeon {
+      background: url("../img/armor.svg"), url("../img/dungeon-ground.png"); }
+  .cell.shield {
+    background: url("../img/shield.svg"), url("../img/tile123.png"); }
+    .cell.shield.basement {
+      background: url("../img/shield.svg"), url("../img/second-ground.png"); }
+    .cell.shield.dungeon {
+      background: url("../img/shield.svg"), url("../img/dungeon-ground.png"); }
+  .cell.bracers {
+    background: url("../img/bracers.svg"), url("../img/tile123.png"); }
+    .cell.bracers.basement {
+      background: url("../img/bracers.svg"), url("../img/second-ground.png"); }
+    .cell.bracers.dungeon {
+      background: url("../img/bracers.svg"), url("../img/dungeon-ground.png"); }
+  .cell.daggers {
+    background: url("../img/daggers.svg"), url("../img/tile123.png"); }
+    .cell.daggers.basement {
+      background: url("../img/daggers.svg"), url("../img/second-ground.png"); }
+    .cell.daggers.dungeon {
+      background: url("../img/daggers.svg"), url("../img/dungeon-ground.png"); }
+  .cell.ring {
+    background: url("../img/ring.svg"), url("../img/tile123.png"); }
+    .cell.ring.basement {
+      background: url("../img/ring.svg"), url("../img/second-ground.png"); }
+    .cell.ring.dungeon {
+      background: url("../img/ring.svg"), url("../img/dungeon-ground.png"); }
+  .cell.pants {
+    background: url("../img/pants.svg"), url("../img/tile123.png"); }
+    .cell.pants.basement {
+      background: url("../img/pants.svg"), url("../img/second-ground.png"); }
+    .cell.pants.dungeon {
+      background: url("../img/pants.svg"), url("../img/dungeon-ground.png"); }
+  .cell.leg-armor {
+    background: url("../img/leg-armor.svg"), url("../img/tile123.png"); }
+    .cell.leg-armor.basement {
+      background: url("../img/leg-armor.svg"), url("../img/second-ground.png"); }
+    .cell.leg-armor.dungeon {
+      background: url("../img/leg-armor.svg"), url("../img/dungeon-ground.png"); }
+  .cell.pill {
+    background: url("../img/pill.png"), url("../img/tile123.png"); }
+    .cell.pill.basement {
+      background: url("../img/pill.png"), url("../img/second-ground.png"); }
+    .cell.pill.dungeon {
+      background: url("../img/pill.png"), url("../img/dungeon-ground.png"); }
+  .cell.invisible {
+    background: #232323; }
+
+.log-info, .messages {
+  width: 300px;
+  height: calc(100vh - 56px);
+  overflow: auto;
+  box-sizing: border-box;
+  text-align: center;
+  float: left;
+  background: #232323; }
+  .log-info p, .messages p {
+    padding: 10px; }
+    .log-info p.attack-message, .messages p.attack-message {
+      background: red; }
+    .log-info p.helper-message, .messages p.helper-message {
+      background: lightgreen; }
+    .log-info p.defeat-message, .messages p.defeat-message {
+      background: lightgrey; }
+
+#mobile-buttons {
+  position: fixed;
+  bottom: 5%;
+  right: 5%;
+  width: 130px;
+  height: 130px;
+  display: none; }
+  #mobile-buttons div {
+    position: absolute;
+    padding: 15px;
+    background: lightgrey;
+    opacity: 0.7;
+    border-radius: 20%; }
+    #mobile-buttons div.pressed {
+      background: #232323;
+      color: red; }
+    #mobile-buttons div#top, #mobile-buttons div#bottom {
+      left: 50%;
+      transform: translateX(-50%); }
+    #mobile-buttons div#top {
+      top: 0; }
+    #mobile-buttons div#bottom {
+      bottom: 0; }
+    #mobile-buttons div#left, #mobile-buttons div#right {
+      top: 50%;
+      transform: translateY(-50%); }
+    #mobile-buttons div#left {
+      left: 0; }
+    #mobile-buttons div#right {
+      right: 0; }
+
+#player-items {
+  margin: 0 auto;
+  width: 250px; }
+  #player-items .droppable {
+    width: 40px;
+    height: 40px;
+    margin: 10px;
+    border: 2px solid white;
+    background-image: url("../img/backpackCell.png");
+    background-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+    #player-items .droppable.helmet, #player-items .droppable.necklace, #player-items .droppable.pants, #player-items .droppable.leg-armor {
+      margin: 10px auto; }
+    #player-items .droppable.appropriate-item {
+      -webkit-box-shadow: 2px 2px 28px 7px white;
+      -moz-box-shadow: 2px 2px 28px 7px white;
+      box-shadow: 2px 2px 28px 7px white; }
+  #player-items .items-flex {
+    display: flex;
+    justify-content: space-around; }
+
+#player-state {
+  position: absolute;
+  top: 5%;
+  left: 5%; }
+  #player-state .bar {
+    width: 100px;
+    height: 10px;
+    padding: 3px; }
+    #player-state .bar div {
+      height: 100%; }
+    #player-state .bar.health {
+      border: 3px solid red; }
+      #player-state .bar.health div {
+        background: red; }
+    #player-state .bar.experience {
+      border: 3px solid gold; }
+      #player-state .bar.experience div {
+        background: gold; }
+
+.shadow {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.7);
+  opacity: 0;
+  z-index: 9999;
+  -webkit-transition: opacity 0.4s ease-in-out;
+  -moz-transition: opacity 0.4s ease-in-out;
+  -ms-transition: opacity 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .shadow div {
+    position: relative;
+    min-width: 300px;
+    min-height: calc(300px * 0.8);
+    background: url("scroll.png") no-repeat;
+    background-size: cover; }
+    .shadow div a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      box-sizing: border-box;
+      background: #951F1E;
+      background-size: cover;
+      float: right;
+      -webkit-border-radius: 10%;
+      -moz-border-radius: 10%;
+      -ms-border-radius: 10%;
+      border-radius: 10%; }
+      .shadow div a:first-child {
+        float: left; }
+      .shadow div a:visited {
+        color: white; }
+      .shadow div a:active {
+        color: white; }
+      .shadow div a:hover {
+        background: white;
+        color: #951F1E; }
+    .shadow div img {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%); }
+    .shadow div p {
+      position: absolute;
+      top: 50%;
+      text-align: center;
+      transform: translateY(-50%);
+      width: 100%; }
+      .shadow div p span {
+        margin-left: 10px; }
+  .shadow #shadow-buttons {
+    width: 60%;
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translate(-50%, -50%); }
+  .shadow #close {
+    position: absolute;
+    top: 5%;
+    right: 5%; }
+  .shadow.visible {
+    opacity: 1;
+    pointer-events: all; }
+
+@media screen and (max-width: 1000px) {
+  .log-info, .messages {
+    width: 150px; }
+
+  #main-container {
+    width: calc(100vw - 450px); } }
+@media screen and (max-width: 920px) {
+  #mobile-buttons {
+    display: block; } }
+@media screen and (max-width: 800px) {
+  .log-info, .messages {
+    display: none; }
+
+  #main-container {
+    width: calc(100% - 300px); } }
+@media screen and (max-width: 700px) {
+  aside {
+    width: 250px; }
+
+  #main-container {
+    width: calc(100vw - 250px); }
+
+  #backpack {
+    width: 160px; }
+
+  #backpack > * {
+    width: 40px;
+    height: 40px; }
+
+  #player-items .droppable {
+    width: 40px;
+    height: 40px;
+    margin: 5px auto !important; }
+
+  .items-flex {
+    width: 200px;
+    margin: 0 auto; } }
+@media screen and (max-width: 580px) {
+  aside {
+    position: fixed;
+    width: 0;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 999;
+    overflow: hidden; }
+
+  #main-container {
+    height: 100vh;
+    width: 100vw; }
+
+  header {
+    display: none; } }
+
+/*# sourceMappingURL=style.css.map */

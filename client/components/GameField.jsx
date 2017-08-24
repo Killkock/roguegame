@@ -46,10 +46,7 @@ const GameField = (props) => {
 
   return (
     <main>
-      <div id='gameField'>
-        {cells}
-      </div>
-      
+      {cells}
     </main>
   )
 }

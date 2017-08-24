@@ -1,0 +1,32 @@
+#player-state {
+	position: absolute;
+	top: 5%;
+	left: 5%;
+
+  .bar {
+  	width: 100px;
+  	height: 10px;
+  	padding: 3px;
+
+    div {
+      height: 100%;
+    }
+
+    &.health {
+      border: 3px solid $health-bar-color;
+
+      div {
+        background: $health-bar-color;
+      }
+    }
+
+    &.experience {
+      border: 3px solid $exp-bar-color;
+
+      div {
+        background: $exp-bar-color;
+      }
+    }
+  }
+
+}

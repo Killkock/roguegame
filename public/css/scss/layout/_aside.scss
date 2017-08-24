@@ -1,0 +1,22 @@
+aside {
+  float: left;
+  width: 300px;
+  height: calc(100vh - 56px);
+  box-sizing: border-box;
+	background: #232323;
+	color: white;
+	overflow-y: auto;
+  @include transition(width, 1s);
+
+  &.opened {
+    width: 250px;
+  }
+
+}
+
+
+#aside-open {
+	position: fixed;
+	right: 0;
+	top: 50%;
+}

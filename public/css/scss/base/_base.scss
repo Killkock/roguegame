@@ -1,0 +1,33 @@
+body {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	overflow: hidden;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+
+	&:visited {
+		color: black;
+	}
+
+	&:active {
+		color: black;
+	}
+
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+img.draggable {
+	width: 30px;
+	height: 30px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
