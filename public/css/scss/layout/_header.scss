@@ -27,6 +27,7 @@ header {
 		padding: 5px;
 		background: lightgrey;
 		transform: translateY(-50%);
+		z-index: 99999;
 
 		@include transition(right, 1s);
 

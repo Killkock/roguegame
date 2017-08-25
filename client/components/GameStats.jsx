@@ -3,6 +3,7 @@ import React from 'react';
 const GameStats = (props) => {
   var { enemies, pills, weapons, boss } = props.stats;
   var opened = props.opened ? 'opened' : '';
+
   return (
     <header className={opened}>
       <a href="#" id="close-header" className={opened} onClick={props.openDiv}><i className="fa fa-chevron-left" aria-hidden="true"></i></a>

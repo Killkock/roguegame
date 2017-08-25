@@ -100,7 +100,7 @@ aside {
     top: 50%;
     padding: 5px;
     background: lightgrey;
-    z-index: 10000;
+    z-index: 99999;
     display: none;
     transform: translateY(-50%);
     -webkit-transition: left 1s ease-in-out;
@@ -138,6 +138,7 @@ header {
     padding: 5px;
     background: lightgrey;
     transform: translateY(-50%);
+    z-index: 99999;
     -webkit-transition: right 1s ease-in-out;
     -moz-transition: right 1s ease-in-out;
     -ms-transition: right 1s ease-in-out;
