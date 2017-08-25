@@ -19,21 +19,4 @@ header {
 		width: 200px;
 	}
 
-	#close-header {
-		position: fixed;
-		top: 50%;
-		right: 0;
-		display: none;
-		padding: 5px;
-		background: lightgrey;
-		transform: translateY(-50%);
-		z-index: 99999;
-
-		@include transition(right, 1s);
-
-		&.opened {
-			right: 200px;
-			color: $health-bar-color;
-		}
-	}
 }

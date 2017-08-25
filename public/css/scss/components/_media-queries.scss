@@ -21,13 +21,15 @@
 		top: 0;
 		left: 0;
 		height: 100vh;
-		z-index: 999;
+		z-index: 9999;
 		overflow: hidden;
 
-		#aside-open {
-			display: block;
-		}
 
+
+	}
+
+	#aside-open {
+		display: block;
 	}
 
 	#player-state {
@@ -50,15 +52,17 @@
 		overflow: hidden;
 		padding: 0;
 
-		#close-header {
-			display: block;
-		}
+
 
 		li {
 			display: block;
 			padding: 10px;
 		}
 
+	}
+
+	#close-header {
+		display: block;
 	}
 
 	.messages {

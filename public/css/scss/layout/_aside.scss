@@ -22,24 +22,4 @@ aside {
     width: 250px;
   }
 
-  #aside-open {
-  	position: fixed;
-  	left: 0px;
-  	top: 50%;
-    padding: 5px;
-    background: lightgrey;
-    z-index: 99999;
-    display: none;
-    transform: translateY(-50%);
-
-    @include transition(left, 1s);
-
-    &.opened {
-      left: 250px;
-      color: $health-bar-color;
-    }
-  }
-
-
-
 }

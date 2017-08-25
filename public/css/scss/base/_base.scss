@@ -33,6 +33,44 @@ img.draggable {
   }
 }
 
+#close-header {
+	position: fixed;
+	top: 50%;
+	right: 0;
+	display: none;
+	padding: 5px;
+	background: lightgrey;
+	transform: translateY(-50%);
+	z-index: 99999;
+
+	@include transition(right, 1s);
+
+	&.opened {
+		right: 200px;
+		color: $health-bar-color;
+	}
+}
+
+
+#aside-open {
+  position: fixed;
+	left: 0px;
+	top: 50%;
+  padding: 5px;
+  background: lightgrey;
+  z-index: 99999;
+  display: none;
+  transform: translateY(-50%);
+
+  @include transition(left, 1s);
+
+  &.opened {
+    left: 250px;
+    color: $health-bar-color;
+  }
+
+}
+
 ::-webkit-scrollbar {
     display: none;
 }

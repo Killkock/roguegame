@@ -69,6 +69,40 @@ img.draggable {
   img.draggable:hover {
     cursor: pointer; }
 
+#close-header {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  display: none;
+  padding: 5px;
+  background: lightgrey;
+  transform: translateY(-50%);
+  z-index: 99999;
+  -webkit-transition: right 1s ease-in-out;
+  -moz-transition: right 1s ease-in-out;
+  -ms-transition: right 1s ease-in-out;
+  transition: right 1s ease-in-out; }
+  #close-header.opened {
+    right: 200px;
+    color: #BD2031; }
+
+#aside-open {
+  position: fixed;
+  left: 0px;
+  top: 50%;
+  padding: 5px;
+  background: lightgrey;
+  z-index: 99999;
+  display: none;
+  transform: translateY(-50%);
+  -webkit-transition: left 1s ease-in-out;
+  -moz-transition: left 1s ease-in-out;
+  -ms-transition: left 1s ease-in-out;
+  transition: left 1s ease-in-out; }
+  #aside-open.opened {
+    left: 250px;
+    color: #BD2031; }
+
 ::-webkit-scrollbar {
   display: none; }
 
@@ -94,22 +128,6 @@ aside {
       margin-left: 10px; }
   aside.opened {
     width: 250px; }
-  aside #aside-open {
-    position: fixed;
-    left: 0px;
-    top: 50%;
-    padding: 5px;
-    background: lightgrey;
-    z-index: 99999;
-    display: none;
-    transform: translateY(-50%);
-    -webkit-transition: left 1s ease-in-out;
-    -moz-transition: left 1s ease-in-out;
-    -ms-transition: left 1s ease-in-out;
-    transition: left 1s ease-in-out; }
-    aside #aside-open.opened {
-      left: 250px;
-      color: #BD2031; }
 
 header {
   padding: 20px;
@@ -130,22 +148,6 @@ header {
     float: right; }
   header.opened {
     width: 200px; }
-  header #close-header {
-    position: fixed;
-    top: 50%;
-    right: 0;
-    display: none;
-    padding: 5px;
-    background: lightgrey;
-    transform: translateY(-50%);
-    z-index: 99999;
-    -webkit-transition: right 1s ease-in-out;
-    -moz-transition: right 1s ease-in-out;
-    -ms-transition: right 1s ease-in-out;
-    transition: right 1s ease-in-out; }
-    header #close-header.opened {
-      right: 200px;
-      color: #BD2031; }
 
 #main-container {
   position: relative;
@@ -153,13 +155,11 @@ header {
   height: calc(100vh - 56px);
   float: left;
   overflow: auto;
-  box-sizing: border-box;
-  -webkit-box-shadow: inset 0px 0px 5px 5px #cdad00;
-  -moz-box-shadow: inset 0px 0px 5px 5px #cdad00;
-  box-shadow: inset 0px 0px 5px 5px #cdad00; }
+  box-sizing: border-box; }
   #main-container main {
     position: absolute;
-    width: 1000px; }
+    width: 1000px;
+    z-index: -1; }
 
 #backpack {
   width: 200px;
@@ -511,10 +511,11 @@ header {
     top: 0;
     left: 0;
     height: 100vh;
-    z-index: 999;
+    z-index: 9999;
     overflow: hidden; }
-    aside #aside-open {
-      display: block; }
+
+  #aside-open {
+    display: block; }
 
   #player-state {
     top: 3%;
@@ -533,11 +534,12 @@ header {
     z-index: 9999;
     overflow: hidden;
     padding: 0; }
-    header #close-header {
-      display: block; }
     header li {
       display: block;
       padding: 10px; }
+
+  #close-header {
+    display: block; }
 
   .messages {
     position: fixed;

@@ -7,7 +7,7 @@ const PlayerStats = (props) => {
   var opened = props.isOpened ? 'opened' : '';
   return (
     <aside className={opened}>
-      <div id="aside-open" className={opened} onClick={props.click}><i className="fa fa-chevron-right" aria-hidden="true"></i></div>
+
       <div id="player-stats">
         <p>Attack: {'0' && props.stats.damage} <span>Armor: {'0' && props.stats.armor}</span></p>
       </div>
@@ -20,3 +20,5 @@ const PlayerStats = (props) => {
 }
 
 export default PlayerStats;
+
+// <div id="aside-open" className={opened} onClick={props.click}><i className="fa fa-chevron-right" aria-hidden="true"></i></div>

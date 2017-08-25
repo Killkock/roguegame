@@ -7,6 +7,8 @@ import GameMessages from './GameMessages.jsx';
 import GameStats from './GameStats.jsx';
 import MobileControlBtns from './MobileControlBtns.jsx'
 import PlayerState from './PlayerState.jsx';
+import AsideOpenBtn from './AsideOpenBtn.jsx';
+import StatsOpenBtn from './StatsOpenBtn.jsx';
 
 import { DragManager } from '../DragManager.js';
 import DoubleClick from '../DoubleClick.js';
@@ -733,6 +735,20 @@ class Main extends React.Component {
           messages={this.state.consoleMsgs}
           opened={this.state.isStatsDivOpened}
         />
+      <AsideOpenBtn
+        isOpened={this.state.isAsideOpened}
+        click={() => this.setState({
+          isAsideOpened: !this.state.isAsideOpened,
+          isStatsDivOpened: false
+        })}
+      />
+      <StatsOpenBtn
+        isOpened={this.state.isStatsDivOpened}
+        click={() => this.setState({
+          isStatsDivOpened: !this.state.isStatsDivOpened,
+          isAsideOpened: false 
+        })}
+      />
         <MobileControlBtns onTouchEvent={(e) => this.handlePress(e)}/>
       </div>
     )
