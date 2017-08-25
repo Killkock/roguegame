@@ -5,6 +5,9 @@
 	float: left;
 	overflow: auto;
 	box-sizing: border-box;
+	-webkit-box-shadow: inset 0px 0px 5px 5px rgba(205,173,0,1);
+		 -moz-box-shadow: inset 0px 0px 5px 5px rgba(205,173,0,1);
+					box-shadow: inset 0px 0px 5px 5px rgba(205,173,0,1);
 
   main {
   	position: absolute;

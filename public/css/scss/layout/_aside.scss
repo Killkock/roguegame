@@ -7,6 +7,7 @@ aside {
 	color: white;
 	overflow-y: auto;
   @include transition(width, 1s);
+  @include inset-shadow();
 
   p {
     text-align: center;
@@ -24,14 +25,18 @@ aside {
   #aside-open {
   	position: fixed;
   	left: 0px;
-  	top: 0;
+  	top: 50%;
+    padding: 5px;
+    background: lightgrey;
     z-index: 10000;
     display: none;
+    transform: translateY(-50%);
 
     @include transition(left, 1s);
 
     &.opened {
       left: 250px;
+      color: $health-bar-color;
     }
   }
 

@@ -4,6 +4,7 @@ header {
 	color: white;
 	box-sizing: border-box;
 	@include transition(width, 1s);
+	@include inset-shadow();
 
   li {
     margin-left: 10px;
@@ -20,13 +21,18 @@ header {
 
 	#close-header {
 		position: fixed;
-		top: 0;
+		top: 50%;
 		right: 0;
 		display: none;
+		padding: 5px;
+		background: lightgrey;
+		transform: translateY(-50%);
+
 		@include transition(right, 1s);
 
 		&.opened {
 			right: 200px;
+			color: $health-bar-color;
 		}
 	}
 }

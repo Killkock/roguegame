@@ -5,7 +5,7 @@ const GameStats = (props) => {
   var opened = props.opened ? 'opened' : '';
   return (
     <header className={opened}>
-      <a id="close-header" className={opened} onClick={props.openDiv} href="#">00</a>
+      <a href="#" id="close-header" className={opened} onClick={props.openDiv}><i className="fa fa-chevron-left" aria-hidden="true"></i></a>
       <ul>
         <li>Enemies: {enemies}</li>
         <li>Pills: {pills}</li>
