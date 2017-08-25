@@ -69,6 +69,9 @@ img.draggable {
   img.draggable:hover {
     cursor: pointer; }
 
+::-webkit-scrollbar {
+  display: none; }
+
 aside {
   float: left;
   width: 250px;
@@ -298,13 +301,14 @@ header {
   -ms-transition: width 1s ease-in-out;
   transition: width 1s ease-in-out; }
   .messages p {
-    padding: 10px; }
-    .messages p.attack-message {
-      background: red; }
+    padding: 10px;
+    margin: 0; }
+    .messages p.warning-message {
+      background: #BD2031; }
     .messages p.helper-message {
       background: lightgreen; }
     .messages p.defeat-message {
-      background: lightgrey; }
+      background: #cdad00; }
   .messages.opened {
     width: 200px;
     overflow-y: auto; }

@@ -10,9 +10,10 @@
 
   p {
     padding: 10px;
+		margin: 0;
 
-    &.attack-message {
-    	background: red;
+    &.warning-message {
+    	background: $health-bar-color;
     }
 
     &.helper-message {
@@ -20,7 +21,7 @@
     }
 
     &.defeat-message {
-      background: lightgrey;
+      background: $exp-bar-color;
     }
 
   }

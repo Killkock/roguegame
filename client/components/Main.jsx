@@ -163,7 +163,6 @@ class Main extends React.Component {
 
     Player.prototype.calculateStats = function() {
       var equipment = this.equipment;
-      console.log(equipment)
       var damage = 0;
       var armor = 0;
       for (var key in equipment) {
@@ -180,7 +179,6 @@ class Main extends React.Component {
 
     Player.prototype.attack = function(enemy, callback) {
       var { damage: playerDamage, armor } = this.calculateStats();
-      console.log(playerDamage, armor)
       var playerAttack = playerDamage * this.level;
       var enemyAttack = enemy.attack();
 
@@ -609,13 +607,9 @@ class Main extends React.Component {
           break;
         }
       }
-      console.log(index)
-      if (!index && index !== 0) {
-        this.setState({
-          isShadowVisible: true,
-          shadowMessage: 'You cant get this item, your backpack is full'
-        })
 
+      if (!index && index !== 0) {
+        sendMessage('You cant pick this item, your backpack is full', 'warning');
         return false;
       }
 
@@ -624,7 +618,7 @@ class Main extends React.Component {
       this.setState({
         backpack
       });
-      console.log(this.state.backpack);
+
       return true;
     }
 
@@ -644,27 +638,31 @@ class Main extends React.Component {
     } else if (dest.type === 'wall') {
 
     } else if (dest.type === 'enemy') {
-      sendMessage('You attacked an enemy', 'attack')
+      sendMessage('You attacked an enemy', 'warning')
       var assault = player.attack(dest);
       if (assault === 'undefined') return;
       if (assault === 'enemy') {
         decreaseStat('enemies')
-        sendMessage('enemy was defeated', 'defeat')
-        player.experience += 10;
+        sendMessage('Enemy was defeated', 'defeat')
+        player.experience += 20;
         this.handleDeath(nX, nY);
         return;
       }
       if (assault === 'player') {
-        this.sendMessage('You lost')
+        this.state.player.hp = 0;
+        sendMessage('You lost', 'warning');
         this.handleDeath(x, y);
-        this.setState({ isFinished: true })
+        this.setState({
+          isFinished: true,
+          player: this.state.player
+        })
       }
     } else if (dest.type === 'pill') {
       decreaseStat(dest.action(player));
       changePlayersLocation();
     } else if (dest.type !== undefined ){
       if (pickWeapon(dest)) {
-        decreaseStat(dest.type);
+        decreaseStat('weapons');
         sendMessage('You took a helper item', 'helper');
         changePlayersLocation();
       }
