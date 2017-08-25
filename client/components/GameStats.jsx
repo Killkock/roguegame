@@ -6,7 +6,7 @@ const GameStats = (props) => {
 
   return (
     <header className={opened}>
-      <a href="#" id="close-header" className={opened} onClick={props.openDiv}><i className="fa fa-chevron-left" aria-hidden="true"></i></a>
+      <div id="close-header" className={opened} onClick={props.openDiv}><i className="fa fa-chevron-left" aria-hidden="true"></i></div>
       <ul>
         <li>Enemies: {enemies}</li>
         <li>Pills: {pills}</li>

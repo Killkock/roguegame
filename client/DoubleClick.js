@@ -1,11 +1,11 @@
 import Main from './components/Main.jsx';
-import { findChildPosition, swapItemsBeetween } from './DragManager.js'
+
+import { findChildPosition, swapItemsBeetween } from './DragManager.js';
 
 var DoubleClick = (function() {
   var component;
 
   var tapped = false;
-
 
   var doubleClick = function(e) {
     if (!e.target.classList.contains('draggable')) return;
