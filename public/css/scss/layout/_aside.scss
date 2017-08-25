@@ -1,6 +1,6 @@
 aside {
   float: left;
-  width: 300px;
+  width: 250px;
   height: calc(100vh - 56px);
   box-sizing: border-box;
 	background: #232323;
@@ -8,15 +8,33 @@ aside {
 	overflow-y: auto;
   @include transition(width, 1s);
 
+  p {
+    text-align: center;
+    padding: 10px;
+
+    span {
+      margin-left: 10px;
+    }
+  }
+
   &.opened {
     width: 250px;
   }
 
-}
+  #aside-open {
+  	position: fixed;
+  	left: 0px;
+  	top: 0;
+    z-index: 10000;
+    display: none;
+
+    @include transition(left, 1s);
+
+    &.opened {
+      left: 250px;
+    }
+  }
 
 
-#aside-open {
-	position: fixed;
-	right: 0;
-	top: 50%;
+
 }

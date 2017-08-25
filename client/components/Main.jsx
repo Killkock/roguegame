@@ -8,7 +8,6 @@ import GameStats from './GameStats.jsx';
 import MobileControlBtns from './MobileControlBtns.jsx'
 import PlayerState from './PlayerState.jsx';
 
-
 import { DragManager } from '../DragManager.js';
 import DoubleClick from '../DoubleClick.js';
 import AdjustViewport from '../AdjustViewport.js';
@@ -72,6 +71,7 @@ class Main extends React.Component {
       isShadowVisible: false,
       shadowContent: {},
       isAsideOpened: false,
+      isStatsDivOpened: false
     })
   }
 
@@ -131,16 +131,20 @@ class Main extends React.Component {
     }
 
     function Player() {
-      Creation.call(this, 'player')
-      this.level = 1;
+      Creation.call(this, 'player');
       this.experience = 0;
+      this.level = Math.floor( this.experience / 100 ) || 1;
       this.hp = 100;
-      this.maxHP = 100 + ( 100 * ( this.level - 1) );
+      this.maxHP = 100 + ( 100 * (this.level - 1) * 0.5);
       this.equipment = {
         helmet: null,
         necklace: null,
         armor: null,
-        sword: null,
+        sword: {
+          damage: 5,
+          armor: 0,
+          type: 'sword'
+        },
         shield: null,
         daggers: null,
         ring: null,
@@ -199,7 +203,7 @@ class Main extends React.Component {
     function Pill() {
       Creation.call(this, 'pill')
       this.action = function(player) {
-        player.hp += 50;
+        player.hp = ( (player.hp + 30) > player.maxHP ? player.maxHP : player.hp + 30 );
         return 'pills';
       };
     };
@@ -688,7 +692,13 @@ class Main extends React.Component {
               console.log(this.state.isMapVisible)
           }}
           shadow={() => this.setState({ isShadowVisible: !this.state.isShadowVisible })}
-
+          openDiv={() => {
+            this.setState({
+              isAsideOpened: false,
+              isStatsDivOpened: !this.state.isStatsDivOpened
+            })
+          }}
+          opened={this.state.isStatsDivOpened}
         />
 
         <PlayerStats
@@ -697,6 +707,7 @@ class Main extends React.Component {
           backpackCapacity={this.state.backpackCapacity}
           items={this.state.player.equipment}
           isOpened={this.state.isAsideOpened}
+          click={() => this.setState({ isAsideOpened: !this.state.isAsideOpened })}
         />
 
 
@@ -711,16 +722,19 @@ class Main extends React.Component {
             exp={this.state.player.experience}
 
           />
-          <PlayerState />
+        <PlayerState player={this.state.player}/>
         </div>
-        <button id="aside-open" onClick={() => this.setState({ isAsideOpened: !this.state.isAsideOpened })}>OO</button>
+
         <Shadow
           visible={this.state.isShadowVisible}
           onClick={() => this.setState({ isShadowVisible: false })}
           content={this.state.shadowContent}
           component={this}
         />
-        <GameMessages messages={this.state.consoleMsgs} />
+        <GameMessages
+          messages={this.state.consoleMsgs}
+          opened={this.state.isStatsDivOpened}
+        />
         <MobileControlBtns onTouchEvent={(e) => this.handlePress(e)}/>
       </div>
     )

@@ -50,7 +50,8 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  overflow: hidden; }
+  overflow: hidden;
+  font-family: 'Inconsolata', monospace; }
 
 a {
   color: black;
@@ -70,7 +71,7 @@ img.draggable {
 
 aside {
   float: left;
-  width: 300px;
+  width: 250px;
   height: calc(100vh - 56px);
   box-sizing: border-box;
   background: #232323;
@@ -80,27 +81,57 @@ aside {
   -moz-transition: width 1s ease-in-out;
   -ms-transition: width 1s ease-in-out;
   transition: width 1s ease-in-out; }
+  aside p {
+    text-align: center;
+    padding: 10px; }
+    aside p span {
+      margin-left: 10px; }
   aside.opened {
     width: 250px; }
-
-#aside-open {
-  position: fixed;
-  right: 0;
-  top: 50%; }
+  aside #aside-open {
+    position: fixed;
+    left: 0px;
+    top: 0;
+    z-index: 10000;
+    display: none;
+    -webkit-transition: left 1s ease-in-out;
+    -moz-transition: left 1s ease-in-out;
+    -ms-transition: left 1s ease-in-out;
+    transition: left 1s ease-in-out; }
+    aside #aside-open.opened {
+      left: 250px; }
 
 header {
   padding: 20px;
   background: #232323;
-  color: white; }
+  color: white;
+  box-sizing: border-box;
+  -webkit-transition: width 1s ease-in-out;
+  -moz-transition: width 1s ease-in-out;
+  -ms-transition: width 1s ease-in-out;
+  transition: width 1s ease-in-out; }
   header li {
     margin-left: 10px;
     display: inline; }
   header button {
     float: right; }
+  header.opened {
+    width: 200px; }
+  header #close-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    display: none;
+    -webkit-transition: right 1s ease-in-out;
+    -moz-transition: right 1s ease-in-out;
+    -ms-transition: right 1s ease-in-out;
+    transition: right 1s ease-in-out; }
+    header #close-header.opened {
+      right: 200px; }
 
 #main-container {
   position: relative;
-  width: calc(100vw - 600px);
+  width: calc(100vw - 550px);
   height: calc(100vh - 56px);
   float: left;
   overflow: auto;
@@ -118,11 +149,16 @@ header {
   #backpack div {
     width: 50px;
     height: 50px;
+    box-sizing: border-box;
     background-image: url("../img/backpackCell.png");
     background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center; }
+    #backpack div.better {
+      -webkit-box-shadow: inset 0px 0px 5px 5px #cdad00;
+      -moz-box-shadow: inset 0px 0px 5px 5px #cdad00;
+      box-shadow: inset 0px 0px 5px 5px #cdad00; }
 
 .cell {
   width: 25px;
@@ -249,22 +285,29 @@ header {
   .cell.invisible {
     background: #232323; }
 
-.log-info, .messages {
+.messages {
   width: 300px;
   height: calc(100vh - 56px);
   overflow: auto;
   box-sizing: border-box;
   text-align: center;
   float: left;
-  background: #232323; }
-  .log-info p, .messages p {
+  background: #232323;
+  -webkit-transition: width 1s ease-in-out;
+  -moz-transition: width 1s ease-in-out;
+  -ms-transition: width 1s ease-in-out;
+  transition: width 1s ease-in-out; }
+  .messages p {
     padding: 10px; }
-    .log-info p.attack-message, .messages p.attack-message {
+    .messages p.attack-message {
       background: red; }
-    .log-info p.helper-message, .messages p.helper-message {
+    .messages p.helper-message {
       background: lightgreen; }
-    .log-info p.defeat-message, .messages p.defeat-message {
+    .messages p.defeat-message {
       background: lightgrey; }
+  .messages.opened {
+    width: 200px;
+    overflow-y: auto; }
 
 #mobile-buttons {
   position: fixed;
@@ -321,9 +364,23 @@ header {
     justify-content: space-around; }
 
 #player-state {
-  position: absolute;
-  top: 5%;
-  left: 5%; }
+  position: fixed;
+  top: calc(3% + 56px);
+  left: calc(3% + 250px); }
+  #player-state > * {
+    margin-bottom: 5px; }
+  #player-state .level {
+    height: 22px;
+    margin: 0;
+    width: 100%;
+    color: #cdad00; }
+    #player-state .level p {
+      line-height: 22px;
+      width: 100%;
+      margin: 0;
+      font-size: 20px; }
+      #player-state .level p .fa.fa-chevron-up {
+        margin-right: 5px; }
   #player-state .bar {
     width: 100px;
     height: 10px;
@@ -331,13 +388,13 @@ header {
     #player-state .bar div {
       height: 100%; }
     #player-state .bar.health {
-      border: 3px solid red; }
+      border: 3px solid #BD2031; }
       #player-state .bar.health div {
-        background: red; }
+        background: #BD2031; }
     #player-state .bar.experience {
-      border: 3px solid gold; }
+      border: 3px solid #cdad00; }
       #player-state .bar.experience div {
-        background: gold; }
+        background: #cdad00; }
 
 .shadow {
   position: fixed;
@@ -348,7 +405,7 @@ header {
   pointer-events: none;
   background: rgba(255, 255, 255, 0.7);
   opacity: 0;
-  z-index: 9999;
+  z-index: 10000;
   -webkit-transition: opacity 0.4s ease-in-out;
   -moz-transition: opacity 0.4s ease-in-out;
   -ms-transition: opacity 0.4s ease-in-out;
@@ -356,48 +413,48 @@ header {
   display: flex;
   justify-content: center;
   align-items: center; }
-  .shadow div {
+  .shadow > div {
     position: relative;
     min-width: 300px;
     min-height: calc(300px * 0.8);
-    background: url("scroll.png") no-repeat;
+    background: url("../img/scroll.png") no-repeat;
     background-size: cover; }
-    .shadow div a {
+    .shadow > div a {
       display: block;
       color: white;
       text-decoration: none;
       padding: 10px;
       box-sizing: border-box;
-      background: #951F1E;
+      background: #BD2031;
       background-size: cover;
       float: right;
       -webkit-border-radius: 10%;
       -moz-border-radius: 10%;
       -ms-border-radius: 10%;
       border-radius: 10%; }
-      .shadow div a:first-child {
+      .shadow > div a:first-child {
         float: left; }
-      .shadow div a:visited {
+      .shadow > div a:visited {
         color: white; }
-      .shadow div a:active {
+      .shadow > div a:active {
         color: white; }
-      .shadow div a:hover {
+      .shadow > div a:hover {
         background: white;
         color: #951F1E; }
-    .shadow div img {
+    .shadow > div img {
       width: 50px;
       height: 50px;
       position: absolute;
       top: 30%;
       left: 50%;
       transform: translate(-50%, -50%); }
-    .shadow div p {
+    .shadow > div p {
       position: absolute;
       top: 50%;
       text-align: center;
       transform: translateY(-50%);
       width: 100%; }
-      .shadow div p span {
+      .shadow > div p span {
         margin-left: 10px; }
   .shadow #shadow-buttons {
     width: 60%;
@@ -413,43 +470,15 @@ header {
     opacity: 1;
     pointer-events: all; }
 
-@media screen and (max-width: 1000px) {
-  .log-info, .messages {
-    width: 150px; }
-
+@media screen and (max-width: 980px) {
   #main-container {
-    width: calc(100vw - 450px); } }
-@media screen and (max-width: 920px) {
+    width: calc(100% - 250px); }
+
   #mobile-buttons {
-    display: block; } }
-@media screen and (max-width: 800px) {
-  .log-info, .messages {
-    display: none; }
+    display: block; }
 
-  #main-container {
-    width: calc(100% - 300px); } }
-@media screen and (max-width: 700px) {
-  aside {
-    width: 250px; }
-
-  #main-container {
-    width: calc(100vw - 250px); }
-
-  #backpack {
-    width: 160px; }
-
-  #backpack > * {
-    width: 40px;
-    height: 40px; }
-
-  #player-items .droppable {
-    width: 40px;
-    height: 40px;
-    margin: 5px auto !important; }
-
-  .items-flex {
-    width: 200px;
-    margin: 0 auto; } }
+  .messages {
+    display: none; } }
 @media screen and (max-width: 580px) {
   aside {
     position: fixed;
@@ -459,12 +488,40 @@ header {
     height: 100vh;
     z-index: 999;
     overflow: hidden; }
+    aside #aside-open {
+      display: block; }
+
+  #player-state {
+    top: 3%;
+    left: 3%; }
 
   #main-container {
     height: 100vh;
     width: 100vw; }
 
   header {
-    display: none; } }
+    position: fixed;
+    top: 0;
+    bottom: 50%;
+    right: 0;
+    width: 0;
+    z-index: 9999;
+    overflow: hidden;
+    padding: 0; }
+    header #close-header {
+      display: block; }
+    header li {
+      display: block;
+      padding: 10px; }
+
+  .messages {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    width: 0;
+    bottom: 0;
+    z-index: 9999;
+    overflow: hidden;
+    display: block; } }
 
 /*# sourceMappingURL=style.css.map */

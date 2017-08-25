@@ -2,6 +2,8 @@ header {
 	padding: 20px;
 	background: #232323;
 	color: white;
+	box-sizing: border-box;
+	@include transition(width, 1s);
 
   li {
     margin-left: 10px;
@@ -11,4 +13,20 @@ header {
   button {
     float: right;
   }
+
+	&.opened {
+		width: 200px;
+	}
+
+	#close-header {
+		position: fixed;
+		top: 0;
+		right: 0;
+		display: none;
+		@include transition(right, 1s);
+
+		&.opened {
+			right: 200px;
+		}
+	}
 }

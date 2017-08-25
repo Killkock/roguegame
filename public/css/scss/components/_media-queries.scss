@@ -1,61 +1,18 @@
 
-@media screen and (max-width: 1000px) {
-	.log-info, .messages {
-		width: 150px;
-	}
-
+@media screen and (max-width: 980px) {
 	#main-container {
-		width: calc(100vw - 450px);
+		width: calc(100% - 250px);
 	}
-}
 
-@media screen and (max-width: 920px) {
 	#mobile-buttons {
 		display: block;
 	}
-}
 
-@media screen and (max-width: 800px) {
-	.log-info, .messages {
+	.messages {
 		display: none;
 	}
-
-	#main-container {
-		width: calc(100% - 300px);
-	}
 }
 
-@media screen and (max-width: 700px) {
-	aside {
-		width: 250px;
-	}
-
-	#main-container {
-		width: calc(100vw - 250px);
-	}
-
-	#backpack {
-		width: 160px;
-	}
-
-	#backpack > * {
-		width: 40px;
-		height: 40px;
-	}
-
-	#player-items .droppable{
-		width: 40px;
-		height: 40px;
-		margin: 5px auto !important;
-	}
-
-	.items-flex {
-		width: 200px;
-		margin: 0 auto;
-	}
-
-
-}
 
 @media screen and (max-width: 580px) {
 	aside {
@@ -66,6 +23,16 @@
 		height: 100vh;
 		z-index: 999;
 		overflow: hidden;
+
+		#aside-open {
+			display: block;
+		}
+
+	}
+
+	#player-state {
+		top: 3%;
+		left: 3%;
 	}
 
 	#main-container {
@@ -74,7 +41,38 @@
 	}
 
 	header {
-		display: none;
+		position: fixed;
+		top: 0;
+		bottom: 50%;
+		right: 0;
+		width: 0;
+		z-index: 9999;
+		overflow: hidden;
+		padding: 0;
+
+		#close-header {
+			display: block;
+		}
+
+		li {
+			display: block;
+			padding: 10px;
+		}
+
 	}
+
+	.messages {
+		position: fixed;
+		top: 50%;
+		right: 0;
+		width: 0;
+		bottom: 0;
+		z-index: 9999;
+		overflow: hidden;
+		display: block;
+	}
+
+
+
 
 }

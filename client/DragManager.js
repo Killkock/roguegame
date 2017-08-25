@@ -1,7 +1,7 @@
 import Main from './components/Main.jsx';
 
 var component;
-var mobileDevice = Modernizr.touch;
+
 
 var DragManager = new function() {
 
@@ -19,8 +19,8 @@ var DragManager = new function() {
     dragObject.elem = elem;
     dragObject.cells = document.querySelectorAll(`.${elem.dataset.destination}.droppable`);
     // запомним, что элемент нажат на текущих координатах pageX/pageY
-    dragObject.downX = mobileDevice ? e.originalEvent.touches[0].pageX : e.pageX;
-    dragObject.downY = mobileDevice ? e.originalEvent.touches[0].pageY : e.pageY;
+    dragObject.downX = e.pageX;
+    dragObject.downY = e.pageY;
     dragObject.destination = elem.dataset.destination;
     dragObject.parent = elem.parentNode;
 
@@ -43,8 +43,8 @@ var DragManager = new function() {
     if (!dragObject.elem) return; // элемент не зажат
 
     if (!dragObject.avatar) { // если перенос не начат...
-      var moveX = (mobileDevice ? e.originalEvent.touches[0].pageX : e.pageX) - dragObject.downX;
-      var moveY = (mobileDevice ? e.originalEvent.touches[0].pageY : e.pageY) - dragObject.downY;
+      var moveX = e.pageX - dragObject.downX;
+      var moveY = e.pageY - dragObject.downY;
 
       emphasizeRightCell(dragObject.cells, true);
       // если мышь передвинулась в нажатом состоянии недостаточно далеко
@@ -69,8 +69,8 @@ var DragManager = new function() {
     }
 
     // отобразить перенос объекта при каждом движении мыши
-    dragObject.avatar.style.left = (mobileDevice ? e.originalEvent.touches[0].pageX : e.pageX) - dragObject.shiftX + 'px';
-    dragObject.avatar.style.top = (mobileDevice ? e.originalEvent.touches[0].pageY : e.pageY) - dragObject.shiftY + 'px';
+    dragObject.avatar.style.left = e.pageX - dragObject.shiftX + 'px';
+    dragObject.avatar.style.top = e.pageY - dragObject.shiftY + 'px';
 
     return false;
   }
@@ -139,10 +139,6 @@ var DragManager = new function() {
 
     return elem.closest(`.${dragObject.destination}.droppable`) || elem.closest('.back-droppable');
   }
-
-  document.ontouchstart = onMouseDown;
-  document.ontouchend = onMouseUp;
-  document.outouchmove = onMouseMove;
 
   document.onmousemove = onMouseMove;
   document.onmouseup = onMouseUp;
@@ -235,7 +231,11 @@ function deleteItemFromBackpack(item) {
 
 function addItemToBackpack(item, destination) {
   var backpack = component.state.backpack;
-  var backpackId = findChildPosition(destination);
+  var backpackId = destination;
+
+  if (typeof(backpackId) !== 'number') {
+    backpackId = findChildPosition(destination);
+  }
 
   backpack[backpackId] = item;
 

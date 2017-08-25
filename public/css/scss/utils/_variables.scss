@@ -3,11 +3,15 @@ $cell-in-row: 40;
 
 $img-folder: '../img/';
 
-$health-bar-color: red;
-$exp-bar-color: gold;
+$health-bar-color: #BD2031;
+$exp-bar-color: rgba(205,173,0,1);
+
+$player-level: $img-folder + 'level1.png';
 
 $player: $img-folder + 'wizard-face.png';
 $enemy: $img-folder + 'griffin-symbol.png';
+
+$scroll: $img-folder + 'scroll.png';
 
 $wall: $img-folder + 'tile106.png';
 $base-wall: $img-folder + 'second-wall.jpg';

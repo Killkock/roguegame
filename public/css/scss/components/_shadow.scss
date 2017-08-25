@@ -7,16 +7,16 @@
 	pointer-events: none;
 	background: rgba(255, 255, 255, 0.7);
 	opacity: 0;
-	z-index: 9999;
+	z-index: 10000;
 
   @include transition(opacity, 0.4s);
 	@include flex-center();
 
-  div {
+  > div {
     position: relative;
   	min-width: 300px;
   	min-height: calc(300px * 0.8);
-  	background: url('scroll.png') no-repeat;
+  	background: url($scroll) no-repeat;
   	background-size: cover;
 
     a {
@@ -25,7 +25,7 @@
     	text-decoration: none;
       padding: 10px;
       box-sizing: border-box;
-    	background: #951F1E;
+    	background: $health-bar-color;
     	background-size: cover;
     	float: right;
 

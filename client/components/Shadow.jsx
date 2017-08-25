@@ -26,7 +26,11 @@ const Shadow = (props) => {
       let backpack = component.state.backpack;
 
       for (let i = 0; i < backpack.length; i++) {
-        if (!backpack[i]) index = i;
+        if (!backpack[i]) {
+          index = i;
+          break;
+        }
+
       }
 
       if (!index && index !== 0) {
@@ -34,8 +38,10 @@ const Shadow = (props) => {
         return;
       }
 
+      console.log(item, itemId, 'attempting of adding to backpack')
+
       deleteItemFromPlayer(itemId);
-      addItemToBackpack(item, itemId);
+      addItemToBackpack(item, index);
 
 
     } else if (root === 'backpack') {
@@ -56,7 +62,7 @@ const Shadow = (props) => {
 
     result = (
       <div>
-        <img src={`${props.content.itemType}.svg`}></img>
+        <img src={`./public/img/${props.content.itemType}.svg`}></img>
         <p>ATTACK: {item.damage} <span>ARMOR: {item.armor}</span></p>
 
         <div id='shadow-buttons'>
