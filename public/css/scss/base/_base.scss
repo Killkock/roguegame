@@ -41,7 +41,7 @@ img.draggable {
 	padding: 5px;
 	background: lightgrey;
 	transform: translateY(-50%);
-	z-index: 99999;
+	z-index: 9999;
 
 	@include transition(right, 1s);
 
@@ -58,7 +58,7 @@ img.draggable {
 	top: 50%;
   padding: 5px;
   background: lightgrey;
-  z-index: 99999;
+  z-index: 9999;
   display: none;
   transform: translateY(-50%);
 

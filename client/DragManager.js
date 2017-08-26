@@ -2,73 +2,75 @@ import Main from './components/Main.jsx';
 
 var component;
 
-
 var DragManager = new function() {
-
+  // the function gives player a possibility of dragging items
   var dragObject = {};
-
   var self = this;
 
   function onMouseDown(e) {
+    // function imports Main's component state, so it will be able to change it
     component = Main.this;
     if (e.which != 1) return;
+
+    // user cant control his character while mouse buttons in pressed
     component.setState({ isMousedown: true })
+
+    // if clicks target isn't an equipment target function returns nothing
     var elem = e.target.closest('.draggable');
     if (!elem) return;
 
     dragObject.elem = elem;
     dragObject.cells = document.querySelectorAll(`.${elem.dataset.destination}.droppable`);
-    // запомним, что элемент нажат на текущих координатах pageX/pageY
     dragObject.downX = e.pageX;
     dragObject.downY = e.pageY;
     dragObject.destination = elem.dataset.destination;
     dragObject.parent = elem.parentNode;
 
 
+    // function add to dragObject data about dragged item. The data depends
+    // on the root of an item (player or backpack)
     if (elem.parentNode.classList.contains('droppable')) {
       dragObject.item = component.state.player.equipment[dragObject.destination];
       dragObject.root = 'player';
-      // deleteItemFromPlayer(dragObject.destination);
     } else if (elem.parentNode.classList.contains('back-droppable')) {
       dragObject.root = 'backpack';
       dragObject.id = findChildPosition(dragObject.parent);
       dragObject.item = component.state.backpack[dragObject.id];
-      // deleteItemFromBackPack(dragObject.id);
     }
 
     return false;
   }
 
   function onMouseMove(e) {
-    if (!dragObject.elem) return; // элемент не зажат
+    if (!dragObject.elem) return;
 
-    if (!dragObject.avatar) { // если перенос не начат...
+    if (!dragObject.avatar) {
       var moveX = e.pageX - dragObject.downX;
       var moveY = e.pageY - dragObject.downY;
 
-      emphasizeRightCell(dragObject.cells, true);
-      // если мышь передвинулась в нажатом состоянии недостаточно далеко
+
+      // the drag wont start until user shift the mouse more than 3px away of
+      // the item
       if (Math.abs(moveX) < 3 && Math.abs(moveY) < 3) {
         return;
       }
 
-      // начинаем перенос
-      dragObject.avatar = createAvatar(e); // создать аватар
-      if (!dragObject.avatar) { // отмена переноса, нельзя "захватить" за эту часть элемента
+      // while draggin, the proper cell in player's equipment will be emphasized
+      emphasizeRightCell(dragObject.cells, true);
+
+      dragObject.avatar = createAvatar(e);
+      if (!dragObject.avatar) {
         dragObject = {};
         return;
       }
 
-      // аватар создан успешно
-      // создать вспомогательные свойства shiftX/shiftY
       var coords = getCoords(dragObject.avatar);
       dragObject.shiftX = dragObject.downX - coords.left;
       dragObject.shiftY = dragObject.downY - coords.top;
 
-      startDrag(e); // отобразить начало переноса
+      startDrag(e);
     }
 
-    // отобразить перенос объекта при каждом движении мыши
     dragObject.avatar.style.left = e.pageX - dragObject.shiftX + 'px';
     dragObject.avatar.style.top = e.pageY - dragObject.shiftY + 'px';
 
@@ -76,7 +78,7 @@ var DragManager = new function() {
   }
 
   function onMouseUp(e) {
-    if (dragObject.avatar) { // если перенос идет
+    if (dragObject.avatar) {
       finishDrag(e);
     }
 
@@ -98,7 +100,6 @@ var DragManager = new function() {
 
   function createAvatar(e) {
 
-    // запомнить старые свойства, чтобы вернуться к ним при отмене переноса
     var avatar = dragObject.elem;
     var old = {
       parent: avatar.parentNode,
@@ -160,6 +161,7 @@ function getCoords(elem) { // кроме IE8-
 }
 
 DragManager.onDragCancel = function(dragObject) {
+  // if drag cancels the function returns an item to its initial position
   dragObject.avatar.rollback();
 };
 
@@ -205,11 +207,12 @@ function emphasizeRightCell(cell, on) {
 }
 
 function findChildPosition(elem) {
+  // the function finds out id of the item, if the item belongs to backpack
+
   var child = elem;
   var parent = child.parentNode;
   var position;
   for (var i = 0; i < parent.children.length; i++) {
-
     if (child === parent.children[i]) {
       position = i;
       return position;
@@ -257,6 +260,7 @@ function addItemToPlayer(destination, item) {
 }
 
 function swapItemsBeetween(playerId, backpackId) {
+  // swaps items between player and backpack
   var player = component.state.player;
   var equipment = player.equipment;
   var backpack = component.state.backpack;

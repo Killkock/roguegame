@@ -6,7 +6,6 @@ const GameStats = (props) => {
 
   return (
     <header className={opened}>
-      <div id="close-header" className={opened} onClick={props.openDiv}><i className="fa fa-chevron-left" aria-hidden="true"></i></div>
       <ul>
         <li>Enemies: {enemies}</li>
         <li>Pills: {pills}</li>
@@ -15,6 +14,7 @@ const GameStats = (props) => {
         <li><a onClick={props.visibility} href="#">VISIBILITY</a></li>
         <li><a onClick={props.update} href="#">UPDATE</a></li>
         <li><a onClick={props.shadow} href="#">SHADOW</a></li>
+        <li><a onClick={props.tutorial} href="#">TUTORIAL</a></li>
       </ul>
     </header>
   )

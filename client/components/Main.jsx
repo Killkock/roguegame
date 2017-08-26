@@ -13,6 +13,7 @@ import StatsOpenBtn from './StatsOpenBtn.jsx';
 import { DragManager } from '../DragManager.js';
 import DoubleClick from '../DoubleClick.js';
 import AdjustViewport from '../AdjustViewport.js';
+import tutorialText from '../TutorialText.js';
 
 class Main extends React.Component {
   constructor(props) {
@@ -164,6 +165,9 @@ class Main extends React.Component {
     Player.prototype = Object.create(Creation.prototype);
 
     Player.prototype.calculateStats = function() {
+      // the function calculates all the stats which are given to player from
+      // his equipment
+
       var equipment = this.equipment;
       var damage = 0;
       var armor = 0;
@@ -211,6 +215,8 @@ class Main extends React.Component {
     Pill.prototype = Object.create(Creation.prototype);
 
     function Equipment() {
+      // randomly creates an equipment and randomly sets its stats
+
       var random = Math.floor(Math.random() * 10);
       var armor = (Math.round(Math.random() * 3)) + 1;
       var damage = (Math.round(Math.random() * 15)) + 1;
@@ -452,8 +458,11 @@ class Main extends React.Component {
     }
 
     function drawTheRoads() {
+      // function connects rooms with each other
+
       for (var j = 0; j < roomHeads.length; j++) {
         if (!checkForRoomsConnection(roomHeads[0].x, roomHeads[0].y, roomHeads[j])) {
+          // if rooms aren't connected => connect them
           paveTheWay(roomHeads[j], roomHeads[roomHeads.length - 1 - j]);
         }
       }
@@ -465,20 +474,29 @@ class Main extends React.Component {
       }
 
       function paveTheWay(room1, room2) {
+        // function connects 2 rooms
+
         var xDifference = room2.x - room1.x;
         var yDifference = room2.y - room1.y;
 
         for (var diff of range(xDifference)) {
-          gameField[room1.x + diff][room1.y] = (gameField[room1.x + diff][room1.y].type === 'room') ? new env.Space() : new env.Road();
+          gameField[room1.x + diff][room1.y] = (gameField[room1.x + diff][room1.y].type === 'room') ?
+                                                  new env.Space() :
+                                                  new env.Road();
         }
 
         for (var diff of (range(yDifference))) {
-          gameField[room2.x][room1.y + diff] = (gameField[room2.x][room1.y + diff].type === 'room') ? new env.Space() : new env.Road();
+          gameField[room2.x][room1.y + diff] = (gameField[room2.x][room1.y + diff].type === 'room') ?
+                                                  new env.Space() :
+                                                  new env.Road();
         }
 
       }
 
       function range(num) {
+          // function returns array of numbers from 0 to num or from num to 0,
+          // it depends on num value (more or less than 0)
+
           var result = [];
           if (num > 0) {
             for (var i = 1; i <= num; i++) {
@@ -494,6 +512,10 @@ class Main extends React.Component {
       }
 
       function checkForRoomsConnection(room1, room2) {
+        // the function checks if 2 rooms are connected.
+        // it recursively checks every surrounding cell until the destination is
+        // reached or all of the surrounding cells are visited
+
         var successfulWays = [];
 
         iter(room1.x, room1.y, room2, [{x: room1.x, y: room1.y}]);
@@ -554,9 +576,13 @@ class Main extends React.Component {
   }
 
   handlePress(e) {
+    // function which is invoked when user presses w-a-s-d or
+    // arrow buttons which apeears on small screens
+
     if (this.state.isFinished) return;
     if (this.state.isMousedown) return;
     if (this.state.isShadowVisible) return;
+
 
     var savePreviousSpot = this.state.savePreviousSpot;
     var [x, y] = this.state.playerLocation;
@@ -565,8 +591,7 @@ class Main extends React.Component {
     var gameField = this.state.gameField;
     var player = gameField[x][y];
     var dest;
-    console.log(this.state.backpack)
-    console.log(e.key)
+
     if (e.key === 'a' || e === 'left') {
       nY--;
     } else if (e.key === 'd' || e === 'right') {
@@ -595,12 +620,18 @@ class Main extends React.Component {
     }
 
     const sendMessage = (text, type) => {
+      // function consoles messages to the message's div
+
       this.setState({
         consoleMsgs: [{ text, type }, ...this.state.consoleMsgs]
       })
     }
 
     const pickWeapon = (item) => {
+      // function invokes when user meets an equipment.
+      // if users backpack is full, nothing but message printing will happen.
+      // Otherwise function puts an item to players backpack
+
       var backpack = this.state.backpack;
       var index;
       for (var i = 0; i < backpack.length; i++) {
@@ -625,6 +656,9 @@ class Main extends React.Component {
     }
 
     const decreaseStat = (stat) => {
+      // when player kills enemy or picks a pill or equipment, the function
+      // decreases an amount of enemy of picked item
+
       var allStats = this.state.allStats;
       var stats = allStats[this.state.currentGameLevel];
       stats[stat] -= 1;
@@ -692,6 +726,10 @@ class Main extends React.Component {
               console.log(this.state.isMapVisible)
           }}
           shadow={() => this.setState({ isShadowVisible: !this.state.isShadowVisible })}
+          tutorial={() => this.setState({
+            isShadowVisible: true,
+            shadowContent: tutorialText
+          })}
           openDiv={() => {
             this.setState({
               isAsideOpened: false,
@@ -727,7 +765,6 @@ class Main extends React.Component {
 
         <Shadow
           visible={this.state.isShadowVisible}
-          onClick={() => this.setState({ isShadowVisible: false })}
           content={this.state.shadowContent}
           component={this}
         />
@@ -746,7 +783,7 @@ class Main extends React.Component {
         isOpened={this.state.isStatsDivOpened}
         click={() => this.setState({
           isStatsDivOpened: !this.state.isStatsDivOpened,
-          isAsideOpened: false 
+          isAsideOpened: false
         })}
       />
         <MobileControlBtns onTouchEvent={(e) => this.handlePress(e)}/>

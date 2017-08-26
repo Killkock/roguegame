@@ -14,10 +14,43 @@
 
   > div {
     position: relative;
-  	min-width: 300px;
-  	min-height: calc(300px * 0.8);
+  	min-width: 320px;
+  	min-height: calc(320px * 0.8);
   	background: url($scroll) no-repeat;
   	background-size: cover;
+
+border: 0px solid #000000;
+
+		&.tutorial-div {
+			max-width: 320px;
+			min-height: 0;
+			padding: 40px;
+			box-sizing: border-box;
+			background: #232323;
+			-webkit-border-radius: 50% 0px 50% 0px;
+			   -moz-border-radius: 50% 0px 50% 0px;
+		        	border-radius: 50% 0px 50% 0px;
+
+			&:hover {
+				-webkit-box-shadow: -1px -2px 46px 5px rgba(255,255,255,1);
+           -moz-box-shadow: -1px -2px 46px 5px rgba(255,255,255,1);
+                box-shadow: -1px -2px 46px 5px rgba(255,255,255,1);
+			}
+
+			#shadow-buttons {
+				position: static;
+				margin: 0 auto;
+				transform: none;
+				width: 80%;
+			}
+
+			p {
+				position: static;
+				transform: none;
+				color: $exp-bar-color;
+				font-weight: bold;
+			}
+		}
 
     a {
       display: block;
@@ -69,15 +102,17 @@
         margin-left: 10px;
       }
     }
+
+		#shadow-buttons {
+	    width: 60%;
+	  	position: absolute;
+	  	bottom: 12%;
+	  	left: 50%;
+	  	transform: translate(-50%, -50%);
+	  }
   }
 
-  #shadow-buttons {
-    width: 60%;
-  	position: absolute;
-  	bottom: 15%;
-  	left: 50%;
-  	transform: translate(-50%, -50%);
-  }
+
 
   #close {
   	position: absolute;

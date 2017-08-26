@@ -77,7 +77,7 @@ img.draggable {
   padding: 5px;
   background: lightgrey;
   transform: translateY(-50%);
-  z-index: 99999;
+  z-index: 9999;
   -webkit-transition: right 1s ease-in-out;
   -moz-transition: right 1s ease-in-out;
   -ms-transition: right 1s ease-in-out;
@@ -92,7 +92,7 @@ img.draggable {
   top: 50%;
   padding: 5px;
   background: lightgrey;
-  z-index: 99999;
+  z-index: 9999;
   display: none;
   transform: translateY(-50%);
   -webkit-transition: left 1s ease-in-out;
@@ -440,10 +440,34 @@ header {
   align-items: center; }
   .shadow > div {
     position: relative;
-    min-width: 300px;
-    min-height: calc(300px * 0.8);
+    min-width: 320px;
+    min-height: calc(320px * 0.8);
     background: url("../img/scroll.png") no-repeat;
-    background-size: cover; }
+    background-size: cover;
+    border: 0px solid #000000; }
+    .shadow > div.tutorial-div {
+      max-width: 320px;
+      min-height: 0;
+      padding: 40px;
+      box-sizing: border-box;
+      background: #232323;
+      -webkit-border-radius: 50% 0px 50% 0px;
+      -moz-border-radius: 50% 0px 50% 0px;
+      border-radius: 50% 0px 50% 0px; }
+      .shadow > div.tutorial-div:hover {
+        -webkit-box-shadow: -1px -2px 46px 5px white;
+        -moz-box-shadow: -1px -2px 46px 5px white;
+        box-shadow: -1px -2px 46px 5px white; }
+      .shadow > div.tutorial-div #shadow-buttons {
+        position: static;
+        margin: 0 auto;
+        transform: none;
+        width: 80%; }
+      .shadow > div.tutorial-div p {
+        position: static;
+        transform: none;
+        color: #cdad00;
+        font-weight: bold; }
     .shadow > div a {
       display: block;
       color: white;
@@ -481,12 +505,12 @@ header {
       width: 100%; }
       .shadow > div p span {
         margin-left: 10px; }
-  .shadow #shadow-buttons {
-    width: 60%;
-    position: absolute;
-    bottom: 15%;
-    left: 50%;
-    transform: translate(-50%, -50%); }
+    .shadow > div #shadow-buttons {
+      width: 60%;
+      position: absolute;
+      bottom: 12%;
+      left: 50%;
+      transform: translate(-50%, -50%); }
   .shadow #close {
     position: absolute;
     top: 5%;
