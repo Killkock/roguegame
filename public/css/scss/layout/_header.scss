@@ -6,6 +6,19 @@ header {
 	@include transition(width, 1s);
 	@include inset-shadow();
 
+	a {
+		color: white;
+		font-weight: bold;
+
+		&:visited {
+			color: white;
+		}
+
+		&:active {
+			color: white;
+		}
+	}
+
   li {
     margin-left: 10px;
   	display: inline;

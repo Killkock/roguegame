@@ -141,6 +141,13 @@ header {
   -webkit-box-shadow: inset 0px 0px 1px 1px white;
   -moz-box-shadow: inset 0px 0px 1px 1px white;
   box-shadow: inset 0px 0px 1px 1px white; }
+  header a {
+    color: white;
+    font-weight: bold; }
+    header a:visited {
+      color: white; }
+    header a:active {
+      color: white; }
   header li {
     margin-left: 10px;
     display: inline; }

@@ -86,7 +86,8 @@ class Main extends React.Component {
       isShadowVisible: false,
       shadowContent: {},
       isAsideOpened: false,
-      isStatsDivOpened: false
+      isStatsDivOpened: false,
+      isControlButtonPressed: false
     })
   }
 
@@ -148,9 +149,9 @@ class Main extends React.Component {
     function Player() {
       Creation.call(this, 'player');
       this.experience = 0;
-      this.level = Math.floor( this.experience / 100 ) || 1;
+      this.level = 1;
       this.hp = 100;
-      this.maxHP = 100 + ( 100 * (this.level - 1) * 0.5);
+      this.maxHP = 100;
       this.equipment = {
         helmet: null,
         necklace: null,
@@ -193,6 +194,17 @@ class Main extends React.Component {
         damage,
         armor
       }
+    }
+
+    Player.prototype.addExperience = function(exp) {
+      this.experience += exp;
+
+      if (this.experience % 100 === 0) {
+        this.level = (this.experience / 100) + 1;
+        this.maxHP = 100 + ( 100 * (this.level - 1) * 0.5);
+        this.hp = this.maxHP;
+      }
+
     }
 
     Player.prototype.attack = function(enemy, callback) {
@@ -594,7 +606,10 @@ class Main extends React.Component {
     if (this.state.isFinished) return;
     if (this.state.isMousedown) return;
     if (this.state.isShadowVisible) return;
+    if (this.state.isControlButtonPressed) return;
 
+    this.setState({ isControlButtonPressed: true })
+    setTimeout(() => this.setState({ isControlButtonPressed: false }), 200);
 
     var savePreviousSpot = this.state.savePreviousSpot;
     var [x, y] = this.state.playerLocation;
@@ -692,7 +707,7 @@ class Main extends React.Component {
       if (assault === 'enemy') {
         decreaseStat('enemies')
         sendMessage('Enemy was defeated', 'defeat')
-        player.experience += 20;
+        player.addExperience(20);
         this.handleDeath(nX, nY);
         return;
       }
