@@ -151,6 +151,9 @@ header {
   header li {
     margin-left: 10px;
     display: inline; }
+    header li:last-child {
+      background: #cdad00;
+      color: #BD2031; }
   header button {
     float: right; }
   header.opened {

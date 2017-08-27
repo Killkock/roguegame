@@ -22,6 +22,11 @@ header {
   li {
     margin-left: 10px;
   	display: inline;
+
+		&:last-child {
+			background: $exp-bar-color;
+			color: $health-bar-color;
+		}
   }
 
   button {
