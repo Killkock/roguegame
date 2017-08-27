@@ -609,7 +609,7 @@ class Main extends React.Component {
     if (this.state.isFinished) return;
     if (this.state.isMousedown) return;
     if (this.state.isShadowVisible) return;
-    if (this.state.isControlButtonPressed) return;
+    // if (this.state.isControlButtonPressed) return;
 
     this.setState({ isControlButtonPressed: true })
     setTimeout(() => this.setState({ isControlButtonPressed: false }), 200);

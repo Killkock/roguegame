@@ -2,7 +2,9 @@ import React from 'react';
 
 const GameMessages = (props) => {
   var opened = props.opened ? 'opened' : '';
-  props = props.messages.map((prop) => <p className={prop.type + '-message'}>{prop.text}</p>);
+  var props = props.messages.map((prop, i) => (
+    <p key={i} className={prop.type + '-message'}>{prop.text}</p>
+  ))
 
   return (
     <div className={`messages ${opened}`}>

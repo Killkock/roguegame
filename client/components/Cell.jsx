@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Cell = (props) => {
+  // a single cell inside a gamefield
   var state = props.state.type;
   var cell;
   var dungeon;

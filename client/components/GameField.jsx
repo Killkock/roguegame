@@ -28,11 +28,13 @@ const GameField = (props) => {
         }
       }
 
-      return <Cell state={cell} level={level} i={i} j={j}/>
+      return <Cell key={(i+1) * j} state={cell} level={level} i={i} j={j}/>
     })
   })
 
   function calculateVisibleArea(x, y) {
+    // the function calculates the area around the player which will be shown.
+    // other cells will be hidden
     var result = [];
     for (let i = x - 2; i <= x + 2; i++) {
       if (i < 0 || i > 39) continue;

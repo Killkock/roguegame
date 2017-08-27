@@ -1,14 +1,21 @@
 import React from 'react';
 
 const MobileControlBtns = (props) => {
-  var mobile = Modernizr.touch;
+  // this component returns a div with arrows, which will be shown if
+  // player is playing the game via a small device. Otherwise, these arrows
+  // will be hidden
 
+  var mobile = Modernizr.touch;
   var callback = props.onTouchEvent;
     function mouseDown(e) {
+      // if player just click an arrow, the player will move just for 1 cell.
+      // But if he will clamp the arrow, the player will move every 500ms
+
       var interval;
       var self = e.target.classList.contains('fa') ? e.target.parentNode : e.target;
       self.classList.add('pressed');
       callback(self.dataset.direction);
+
       interval = setInterval(function() {
         callback(self.dataset.direction);
       }, 500)
