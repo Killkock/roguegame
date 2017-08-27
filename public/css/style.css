@@ -527,7 +527,20 @@ header {
     display: block; }
 
   .messages {
-    display: none; } }
+    display: none; }
+
+  #player-items .droppable {
+    width: 30px;
+    height: 30px; }
+  #player-items .items-flex {
+    width: 200px;
+    margin: 0 auto; }
+
+  #backpack {
+    width: 160px; }
+    #backpack .back-droppable {
+      width: 40px;
+      height: 40px; } }
 @media screen and (max-width: 600px) {
   aside {
     position: fixed;

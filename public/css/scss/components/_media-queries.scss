@@ -11,6 +11,27 @@
 	.messages {
 		display: none;
 	}
+
+	#player-items {
+		.droppable {
+			width: 30px;
+			height: 30px;
+		}
+
+		.items-flex {
+			width: 200px;
+			margin: 0 auto;
+		}
+	}
+
+	#backpack {
+		width: 160px;
+
+		.back-droppable {
+			width: 40px;
+			height: 40px;
+		}
+	}
 }
 
 

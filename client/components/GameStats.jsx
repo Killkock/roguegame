@@ -7,13 +7,10 @@ const GameStats = (props) => {
   return (
     <header className={opened}>
       <ul>
-        <li>Enemies: {enemies}</li>
-        <li>Pills: {pills}</li>
-        <li>Weapons: {weapons}</li>
-        <li>Boss: {boss}</li>
+        <li>Enemies: {enemies} Boss: {boss}</li>
+        <li>Weapons: {weapons} Pills: {pills}</li>
         <li><a onClick={props.visibility} href="#">VISIBILITY</a></li>
         <li><a onClick={props.update} href="#">UPDATE</a></li>
-        <li><a onClick={props.shadow} href="#">SHADOW</a></li>
         <li><a onClick={props.tutorial} href="#">TUTORIAL</a></li>
       </ul>
     </header>

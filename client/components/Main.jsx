@@ -24,6 +24,18 @@ class Main extends React.Component {
 
   componentDidMount() {
     AdjustViewport();
+
+    window.addEventListener('resize', function(e) {
+      // this event listener is kinda fix for the situation when
+      // player on a small screen opens a side div, that side div will have a
+      // class .opened, and if after that window resizes, the dimensions of
+      // header and div.messages will be distorted. So this listener just removes
+      // class .opened when window's width becomes more than 600px
+      if (window.innerWidth >= 600) {
+        document.querySelector('.messages').classList.remove('opened');
+        document.querySelector('header').classList.remove('opened');
+      }
+    })
   }
 
   componentWillMount() {
@@ -723,9 +735,7 @@ class Main extends React.Component {
           }}
           visibility={() => {
               this.setState({ isMapVisible: !this.state.isMapVisible })
-              console.log(this.state.isMapVisible)
           }}
-          shadow={() => this.setState({ isShadowVisible: !this.state.isShadowVisible })}
           tutorial={() => this.setState({
             isShadowVisible: true,
             shadowContent: tutorialText
