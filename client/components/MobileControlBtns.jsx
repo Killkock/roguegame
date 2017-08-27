@@ -18,7 +18,7 @@ const MobileControlBtns = (props) => {
 
       interval = setInterval(function() {
         callback(self.dataset.direction);
-      }, 500)
+      }, 150)
 
       self.onmouseup = function() {
         self.classList.remove('pressed');

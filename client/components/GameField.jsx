@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Cell from './Cell.jsx'
-import PlayerState from './PlayerState.jsx';
+
 
 const GameField = (props) => {
   var field = props.gameField;
@@ -28,7 +28,7 @@ const GameField = (props) => {
         }
       }
 
-      return <Cell key={(i+1) * j} state={cell} level={level} i={i} j={j}/>
+      return <Cell key={(i+1) * j} state={cell} level={level}/>
     })
   })
 

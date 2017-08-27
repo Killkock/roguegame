@@ -165,7 +165,7 @@ header {
   box-sizing: border-box; }
   #main-container main {
     position: absolute;
-    width: 1000px;
+    width: 1050px;
     z-index: -1; }
 
 #backpack {
@@ -189,8 +189,8 @@ header {
       box-shadow: inset 0px 0px 5px 5px #cdad00; }
 
 .cell {
-  width: 25px;
-  padding-top: 25px;
+  width: 35px;
+  padding-top: 35px;
   float: left;
   background-repeat: no-repeat;
   background-attachment: fixed;

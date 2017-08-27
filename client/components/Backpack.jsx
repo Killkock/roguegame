@@ -17,9 +17,9 @@ const Backpack = (props) => {
                       'better' :
                       '');
 
-      items.push(<div key={i}data-belong="backpack" className={`back-droppable ${better}`}><img className="draggable" src={`public/img/${backpack[i].type}.svg`} data-damage={damage} data-armor={armor} data-destination={backpack[i].type}></img></div>)
+      items.push(<div key={i} data-belong="backpack" className={`back-droppable ${better}`}><img className="draggable" src={`public/img/${backpack[i].type}.svg`} data-damage={damage} data-armor={armor} data-destination={backpack[i].type}></img></div>)
     } else {
-      items.push(<div key={i}data-belong="backpack" className='back-droppable'></div>)
+      items.push(<div key={i} data-belong="backpack" className='back-droppable'></div>)
     }
   }
 

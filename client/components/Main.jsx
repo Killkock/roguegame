@@ -79,8 +79,8 @@ class Main extends React.Component {
       currentGameLevel,
       gameLevels,
       savePreviosSpot: false,
-      gameFieldHeight: 40,
-      gameFieldWidth: 40,
+      gameFieldHeight: 30,
+      gameFieldWidth: 30,
       consoleMsgs: [],
       player: player,
       backpack: new Array(8),
@@ -325,8 +325,8 @@ class Main extends React.Component {
 
     var gameField = [];
     var roomHeads = [];
-    var height = 40;
-    var width = 40;
+    var height = 30;
+    var width = 30;
     var roomsAmount = 15;
     var stats;
 
@@ -417,8 +417,8 @@ class Main extends React.Component {
       var place = chooseCellForRoom(size);
       var x = place.x;
       var y = place.y;
-      var maxHeight = (x + height) < 40 ? x + height : 40;
-      var maxWidth = (y + width) < 40 ? y + width : 40;
+      var maxHeight = (x + height) < 30 ? x + height : 30;
+      var maxWidth = (y + width) < 30 ? y + width : 30;
 
       for (var i = x; i < maxHeight; i++) {
         for (var j = y; j < maxWidth; j++) {
@@ -430,10 +430,10 @@ class Main extends React.Component {
     }
 
     function generateRoom() {
-      var minWidth = 4;
-      var minHeight = 4;
-      var maxWidth = 8;
-      var maxHeight = 8;
+      var minWidth = 3;
+      var minHeight = 3;
+      var maxWidth = 6;
+      var maxHeight = 6;
 
       var width = Math.round(Math.random() * (maxWidth - minWidth)) + minWidth;
       var height = Math.round(Math.random() * (maxHeight - minHeight)) + minHeight;
@@ -474,8 +474,8 @@ class Main extends React.Component {
       return place;
 
       function random() {
-        var x = Math.floor(Math.random() * 40);
-        var y = Math.floor(Math.random() * 40);
+        var x = Math.floor(Math.random() * 30);
+        var y = Math.floor(Math.random() * 30);
 
         return {
           x: x,
@@ -606,13 +606,16 @@ class Main extends React.Component {
     // function which is invoked when user presses w-a-s-d or
     // arrow buttons which apeears on small screens
 
+    console.time('move');
+    console.time('init');
+
     if (this.state.isFinished) return;
     if (this.state.isMousedown) return;
     if (this.state.isShadowVisible) return;
     // if (this.state.isControlButtonPressed) return;
+    console.time('state')
+    console.timeEnd('state')
 
-    this.setState({ isControlButtonPressed: true })
-    setTimeout(() => this.setState({ isControlButtonPressed: false }), 200);
 
     var savePreviousSpot = this.state.savePreviousSpot;
     var [x, y] = this.state.playerLocation;
@@ -621,6 +624,7 @@ class Main extends React.Component {
     var gameField = this.state.gameField;
     var player = gameField[x][y];
     var dest;
+
 
     if (e.key === 'a' || e === 'left') {
       nY--;
@@ -635,7 +639,7 @@ class Main extends React.Component {
     }
 
     AdjustViewport();
-
+    console.time('funcInit')
     const changePlayersLocation = () => {
       var playerLocations = this.state.playerLocations;
       gameField[x][y] = savePreviousSpot || new this.state.environment.Space();
@@ -677,11 +681,11 @@ class Main extends React.Component {
       }
 
       backpack[index] = item;
-
+      console.time('pick weapon')
       this.setState({
         backpack
       });
-
+      console.timeEnd('pick weapon')
       return true;
     }
 
@@ -695,6 +699,8 @@ class Main extends React.Component {
 
       this.setState({ allStats })
     }
+    console.timeEnd('funcInit')
+    console.timeEnd('init')
 
     dest = this.state.gameField[nX][nY];
     if (dest.type === 'space' || dest.type === 'road') {
@@ -728,12 +734,18 @@ class Main extends React.Component {
       changePlayersLocation();
     } else if (dest.type !== undefined ){
       if (pickWeapon(dest)) {
+        console.time('stats')
         decreaseStat('weapons');
+        console.timeEnd('stats')
+        console.time('message')
         sendMessage('You took a helper item', 'helper');
+        console.timeEnd('message')
         changePlayersLocation();
       }
 
     }
+
+    console.timeEnd('move');
   }
 
   handleDeath(x, y) {
@@ -741,6 +753,8 @@ class Main extends React.Component {
     gameField[x][y] = new this.state.environment.Space();
     this.setState({ gameField })
   }
+
+
 
   render() {
     return (
