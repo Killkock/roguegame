@@ -63,7 +63,7 @@ class Shadow extends React.Component {
 
 
       } else if (root === 'backpack') {
-        swapItemsBeetween(props.content.itemType, itemId);
+        swapItemsBeetween(this.props.content.itemType, itemId);
       }
 
       hideShadow();
