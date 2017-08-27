@@ -1,5 +1,7 @@
 import Main from './components/Main.jsx';
 
+import { findChildPosition } from './DragManager.js'
+
 var DoubleClick = (function() {
   // this function checks for user's double click.
   var component;
