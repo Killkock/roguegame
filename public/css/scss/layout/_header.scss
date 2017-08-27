@@ -17,16 +17,23 @@ header {
 		&:active {
 			color: white;
 		}
+
+		&:last-child {
+			padding: 5px;
+			background: $exp-bar-color;
+			color: $health-bar-color;
+		}
+
+		&:hover {
+			color: $exp-bar-color;
+			background: $health-bar-color;
+		}
 	}
 
   li {
     margin-left: 10px;
   	display: inline;
 
-		&:last-child {
-			background: $exp-bar-color;
-			color: $health-bar-color;
-		}
   }
 
   button {

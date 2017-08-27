@@ -148,12 +148,16 @@ header {
       color: white; }
     header a:active {
       color: white; }
+    header a:last-child {
+      padding: 5px;
+      background: #cdad00;
+      color: #BD2031; }
+    header a:hover {
+      color: #cdad00;
+      background: #BD2031; }
   header li {
     margin-left: 10px;
     display: inline; }
-    header li:last-child {
-      background: #cdad00;
-      color: #BD2031; }
   header button {
     float: right; }
   header.opened {
