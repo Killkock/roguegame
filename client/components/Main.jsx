@@ -23,7 +23,10 @@ class Main extends React.Component {
   };
 
   componentDidMount() {
-    AdjustViewport();
+
+    for (let i = 0; i < 5; i++) {
+      AdjustViewport();
+    }
 
     window.addEventListener('resize', function(e) {
       // this event listener is kinda fix for the situation when
