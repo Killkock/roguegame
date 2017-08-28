@@ -100,6 +100,17 @@ class Shadow extends React.Component {
       )
     }
 
+    if ( type === 'end' ) {
+      result = (
+        <div className='tutorial-div'>
+          <p className='tutorial'>{this.props.content.message}</p>
+          <div id="shadow-buttons">
+            <a href="#" onClick={() => this.props.endHandler()}>AGAIN</a>
+          </div>
+        </div>
+      )
+    }
+
 
     if ( root ) {
 

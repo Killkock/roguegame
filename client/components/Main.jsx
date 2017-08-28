@@ -121,7 +121,15 @@ class Main extends React.Component {
     };
     Door.prototype = Object.create(Creation.prototype);
 
-    Door.prototype.action = function(component, callback) {
+    Door.prototype.action = function(component, movePlayer, sendMessage) {
+      var stats = component.state.allStats[component.state.currentGameLevel];
+      var stat = stats.enemies;
+      if (stat !== 0) {
+        movePlayer();
+        sendMessage('You cant get to another room while at least one enemy is still alive', 'warning');
+        component.setState({ savePreviousSpot: this })
+        return;
+      }
       if (confirm('do you want to go on the another level?')) {
         var level = this.destination;
          component.setState({
@@ -174,9 +182,11 @@ class Main extends React.Component {
 
     function Boss() {
       this.type = 'boss'
+      this.level = level + 1 || level;
+      this.hp = 100 * this.level;
     };
 
-    Boss.prototype = new Enemy(10);
+    Boss.prototype = Object.create(Enemy.prototype);
 
     Player.prototype = Object.create(Creation.prototype);
 
@@ -212,14 +222,15 @@ class Main extends React.Component {
 
     Player.prototype.attack = function(enemy, callback) {
       var { damage: playerDamage, armor } = this.calculateStats();
-      var playerAttack = playerDamage * this.level;
+      var playerAttack = playerDamage;
       var enemyAttack = enemy.attack();
 
-      this.hp -= (enemyAttack > armor) ? (enemyAttack - armor) : 0;
+      this.hp -= (enemyAttack > armor * 0.75) ? (enemyAttack - armor * 0.75) : 0;
 
       enemy.hp -= playerAttack;
       self.setState({ player: this })
-      console.log(`You have just attacked mob. Your hp: ${this.hp}. Mob: ${enemy.hp}`)
+      callback(`You've just attacked a mob. Your hp: ${this.hp}. Mob: ${enemy.hp}`, 'warning')
+
       if (this.hp <= 0) {
         return 'player';
       } else if (enemy.hp <= 0) {
@@ -234,7 +245,8 @@ class Main extends React.Component {
     function Pill() {
       Creation.call(this, 'pill')
       this.action = function(player) {
-        player.hp = ( (player.hp + 30) > player.maxHP ? player.maxHP : player.hp + 30 );
+        var part = player.maxHP / 4;
+        player.hp = ( (player.hp + part) > player.maxHP ? player.maxHP : player.hp + part );
         return 'pills';
       };
     };
@@ -249,8 +261,6 @@ class Main extends React.Component {
       var damage = (Math.round(Math.random() * 15)) + 1;
       var type;
       var stats;
-
-
 
       if (random === 0) {
         type = 'sword';
@@ -284,8 +294,6 @@ class Main extends React.Component {
         stats = 'attack';
       }
 
-
-
       if (stats === 'attack') {
         damage *= 2;
         armor = 0;
@@ -294,13 +302,9 @@ class Main extends React.Component {
         damage = 0;
       }
 
-      console.log(type, stats, armor, damage)
-
       Creation.call(this, type);
       this.armor = armor;
       this.damage = damage;
-
-
     }
 
     Equipment.prototype = Object.create(Creation.prototype);
@@ -348,7 +352,6 @@ class Main extends React.Component {
     fillGameField(this);
 
     if (level !== 0) {
-      console.log(gameField[roomHeads[0].x - 1], roomHeads[0].x - 1)
       gameField[roomHeads[0].x][roomHeads[0].y] = player;
       if (level === 2) {
         gameField[roomHeads[0].x - 1][roomHeads[0].y] = new env.Door(level - 1);
@@ -393,7 +396,7 @@ class Main extends React.Component {
         } else if (random > 0.92) {
           enemies++;
           return new env.Enemy(level + 1);
-        } else if (random < 0.02) {
+        } else if (random < 0.04) {
           weapons++;
           var equip = new env.Equipment();
           return equip;
@@ -430,6 +433,7 @@ class Main extends React.Component {
     }
 
     function generateRoom() {
+      // the function randomly generates rooms dimensions and returns them
       var minWidth = 3;
       var minHeight = 3;
       var maxWidth = 6;
@@ -445,6 +449,10 @@ class Main extends React.Component {
     }
 
     function chooseCellForRoom(size) {
+      // the function randomly chooses a place for new room.
+      // if the place isn't appropriate or is already taken by another room function
+      // continue searching until the empty one place is found
+
       var { width, height } = size;
       var place;
       var isFree = isAreaFree();
@@ -517,7 +525,6 @@ class Main extends React.Component {
                                                   new env.Space() :
                                                   new env.Road();
         }
-
       }
 
       function range(num) {
@@ -692,10 +699,30 @@ class Main extends React.Component {
     const decreaseStat = (stat) => {
       // when player kills enemy or picks a pill or equipment, the function
       // decreases an amount of enemy of picked item
-
       var allStats = this.state.allStats;
       var stats = allStats[this.state.currentGameLevel];
+      var finished = true;
       stats[stat] -= 1;
+
+      if (stat === 'enemies' && stats[stat] === 0) {
+        for (var i = 0; i < allStats.length; i++) {
+          if (allStats[i].enemies !== 0) {
+            finished = false;
+            break;
+          }
+        }
+
+        if (finished) {
+          this.setState({
+            isFinished: true,
+            shadowContent: {
+              type: 'end',
+              message: "Congratulations, you've just won. Do you wanna repeat?"
+            },
+            isShadowVisible: true
+          })
+        }
+      }
 
       this.setState({ allStats })
     }
@@ -706,12 +733,11 @@ class Main extends React.Component {
     if (dest.type === 'space' || dest.type === 'road') {
       changePlayersLocation();
     } else if (dest.type === 'door') {
-      dest.action(this, changePlayersLocation);
+      dest.action(this, changePlayersLocation, sendMessage);
     } else if (dest.type === 'wall') {
 
     } else if (dest.type === 'enemy') {
-      sendMessage('You attacked an enemy', 'warning')
-      var assault = player.attack(dest);
+      var assault = player.attack(dest, sendMessage);
       if (assault === 'undefined') return;
       if (assault === 'enemy') {
         decreaseStat('enemies')
@@ -722,11 +748,16 @@ class Main extends React.Component {
       }
       if (assault === 'player') {
         this.state.player.hp = 0;
-        sendMessage('You lost', 'warning');
+
         this.handleDeath(x, y);
         this.setState({
           isFinished: true,
-          player: this.state.player
+          player: this.state.player,
+          shadowContent: {
+            type: 'end',
+            message: 'Unfortunately, you died. Do you wanna play again?'
+          },
+          isShadowVisible: true
         })
       }
     } else if (dest.type === 'pill') {
@@ -790,8 +821,7 @@ class Main extends React.Component {
           click={() => this.setState({ isAsideOpened: !this.state.isAsideOpened })}
         />
 
-
-      <div id="main-container">
+        <div id="main-container">
           <GameField
             gameField={this.state.gameField}
             playerLocation={this.state.playerLocation}
@@ -802,32 +832,33 @@ class Main extends React.Component {
             exp={this.state.player.experience}
 
           />
-        <PlayerState player={this.state.player}/>
+          <PlayerState player={this.state.player}/>
         </div>
 
         <Shadow
           visible={this.state.isShadowVisible}
           content={this.state.shadowContent}
           component={this}
+          endHandler={() => this.mounting()}
         />
         <GameMessages
           messages={this.state.consoleMsgs}
           opened={this.state.isStatsDivOpened}
         />
-      <AsideOpenBtn
-        isOpened={this.state.isAsideOpened}
-        click={() => this.setState({
-          isAsideOpened: !this.state.isAsideOpened,
-          isStatsDivOpened: false
-        })}
-      />
-      <StatsOpenBtn
-        isOpened={this.state.isStatsDivOpened}
-        click={() => this.setState({
-          isStatsDivOpened: !this.state.isStatsDivOpened,
-          isAsideOpened: false
-        })}
-      />
+        <AsideOpenBtn
+          isOpened={this.state.isAsideOpened}
+          click={() => this.setState({
+            isAsideOpened: !this.state.isAsideOpened,
+            isStatsDivOpened: false
+          })}
+        />
+        <StatsOpenBtn
+          isOpened={this.state.isStatsDivOpened}
+          click={() => this.setState({
+            isStatsDivOpened: !this.state.isStatsDivOpened,
+            isAsideOpened: false
+          })}
+        />
         <MobileControlBtns onTouchEvent={(e) => this.handlePress(e)}/>
       </div>
     )
